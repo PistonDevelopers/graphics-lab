@@ -11,6 +11,7 @@ mod vector2d;
 mod empty_app;
 mod test_polygons;
 mod snipcode_triangulation;
+mod convertion;
 
 fn main() {
     // Create window.
