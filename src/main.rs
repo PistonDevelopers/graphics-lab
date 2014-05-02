@@ -7,6 +7,7 @@ extern crate piston;
 
 use piston::*;
 
+mod vector2d;
 mod empty_app;
 mod test_polygons;
 mod snipcode_triangulation;

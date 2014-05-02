@@ -1,18 +1,6 @@
+use Vector2d = vector2d::Vector2d;
+
 static EPSILON: f64 = 0.0000000001;
-
-pub struct Vector2d {
-    m_x: f64,
-    m_y: f64,
-}
-
-impl Vector2d {
-    fn get_x(&self) -> f64 { self.m_x }
-    fn get_y(&self) -> f64 { self.m_y }
-    fn set(&mut self, x: f64, y: f64) {
-        self.m_x = x;
-        self.m_y = y;
-    }
-}
 
 fn area(contour: &Vec<Vector2d>) -> f64 {
     let n = contour.len();
