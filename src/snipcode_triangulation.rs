@@ -97,14 +97,14 @@ fn snip(
 }
 
 fn process(
-    contour: &Vec<Vector2d>, 
-    result: &mut Vec<Vector2d>
-) -> bool {
+    contour: &Vec<Vector2d>
+) -> Option<Vec<Vector2d>> {
     /* allocate and initialize list of Vertices in polygon */
 
     let n = contour.len();
-    if n < 3 { return false; }
+    if n < 3 { return None; }
 
+    let mut result: Vec<Vector2d> = Vec::new();
     let mut V: Vec<uint> = Vec::with_capacity(n);
 
     /* we want a counter-clockwise polygon in V */
@@ -130,7 +130,7 @@ fn process(
             count -= 1;
 
             //** Triangulate: ERROR - probable bad polygon!
-            return false;
+            return None;
         }
 
         count -= 1;
@@ -171,6 +171,6 @@ fn process(
         }
     }
 
-    true
+    Some(result)
 }
 
