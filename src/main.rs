@@ -8,6 +8,7 @@ extern crate piston;
 use piston::*;
 
 mod empty_app;
+mod test_polygons;
 
 fn main() {
     // Create window.
