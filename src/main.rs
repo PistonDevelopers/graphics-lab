@@ -9,6 +9,7 @@ use piston::*;
 
 mod empty_app;
 mod test_polygons;
+mod snipcode_triangulation;
 
 fn main() {
     // Create window.
