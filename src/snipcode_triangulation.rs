@@ -54,12 +54,13 @@ pub fn inside_triangle(
 
 pub fn snip(
     contour: &[Vector2d],
-    u: uint,
-    v: uint,
-    w: uint,
+    triangle: [uint, ..3],
     n: uint,
     V: &mut Vec<uint>
 ) -> bool {
+    let u = triangle[0];
+    let v = triangle[1];
+    let w = triangle[2];
 
     let Ax = contour.get(*V.get(u)).unwrap().get_x();
     let Ay = contour.get(*V.get(u)).unwrap().get_y();
@@ -131,7 +132,7 @@ pub fn process(
         ];
         v = triangle[1];
 
-        if snip(contour, triangle[0], triangle[1], triangle[2], number_of_vertices, &mut V) {
+        if snip(contour, triangle, number_of_vertices, &mut V) {
             for &i in triangle.iter() {
                 result.push(*contour.get(*V.get(i)).unwrap());
             }
