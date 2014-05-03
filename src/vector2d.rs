@@ -1,5 +1,6 @@
 
 /// Makes it easier to test translated algorithms from other languages.
+#[deriving(Eq)]
 pub struct Vector2d {
     pub x: f64,
     pub y: f64,

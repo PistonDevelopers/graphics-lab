@@ -19,6 +19,8 @@ impl Game for App {
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
         let triangles = snipcode_triangulation::process(polygon.as_slice());
+        if triangles == None { return; }
+
         let triangles = triangles.unwrap();
         let triangles = conversion::to_vec_f64(triangles.as_slice());
         let n = triangles.len() / (3 * 2);
