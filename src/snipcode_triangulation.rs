@@ -58,9 +58,7 @@ pub fn snip(
     n: uint,
     vertex_indices: &Vec<uint>
 ) -> bool {
-    let u = triangle[0];
-    let v = triangle[1];
-    let w = triangle[2];
+    let (u, v, w) = (triangle[0], triangle[1], triangle[2]);
 
     let A = contour.get(*vertex_indices.get(u)).unwrap();
     let B = contour.get(*vertex_indices.get(v)).unwrap();
@@ -75,6 +73,7 @@ pub fn snip(
     }
 
     for p in range(0, n) {
+        // Do not check for any of the vertices in the triangle.
         if (p == u) || (p == v) || (p == w) { continue; }
 
         let Px = contour.get(*vertex_indices.get(p)).unwrap().get_x();
