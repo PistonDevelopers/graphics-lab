@@ -96,16 +96,16 @@ pub fn process(
     if n < 3 { return None; }
 
     let mut result: Vec<Vector2d> = Vec::new();
-    let mut V: Vec<uint> = Vec::with_capacity(n);
+    let mut vertex_indices: Vec<uint> = Vec::with_capacity(n);
 
     /* we want a counter-clockwise polygon in V */
 
     // Computes the area which has opposite signs
     // whether the polygon is clock-wise or counter-clockwise.
     if 0.0_f64 < area(contour) {
-        for v in range(0, n) { V.push(v); }
+        for v in range(0, n) { vertex_indices.push(v); }
     } else {
-        for v in range(0, n) { V.push((n-1)-v); }
+        for v in range(0, n) { vertex_indices.push((n-1)-v); }
     }
 
     let mut number_of_vertices = n;
@@ -132,9 +132,9 @@ pub fn process(
         ];
         v = triangle[1];
 
-        if snip(contour, triangle, number_of_vertices, &mut V) {
+        if snip(contour, triangle, number_of_vertices, &mut vertex_indices) {
             for &i in triangle.iter() {
-                result.push(*contour.get(*V.get(i)).unwrap());
+                result.push(*contour.get(*vertex_indices.get(i)).unwrap());
             }
 
             m += 1;
@@ -144,7 +144,7 @@ pub fn process(
                 let s = v + i;
                 let t = v + i + 1;
 
-                *V.get_mut(s) = *V.get(t);
+                *vertex_indices.get_mut(s) = *vertex_indices.get(t);
             }
 
             // "Removed" a vertex.
