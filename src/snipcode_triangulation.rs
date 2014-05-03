@@ -129,15 +129,9 @@ pub fn process(
         let w = vecmath::modular_offset_index(number_of_vertices, v, 1);
 
         if snip(contour, u, v, w, number_of_vertices, &mut V) {
-            /* true names of the vertices */
-            let a = *V.get(u);
-            let b = *V.get(v);
-            let c = *V.get(w);
-
-            /* output Triangle */
-            result.push(*contour.get(a).unwrap());
-            result.push(*contour.get(b).unwrap());
-            result.push(*contour.get(c).unwrap());
+            for &i in [u, v, w].iter() {
+                result.push(*contour.get(*V.get(i)).unwrap());
+            }
 
             m += 1;
 
