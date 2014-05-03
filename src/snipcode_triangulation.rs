@@ -2,7 +2,7 @@ use Vector2d = vector2d::Vector2d;
 
 static EPSILON: f64 = 0.0000000001;
 
-fn area(contour: &Vec<Vector2d>) -> f64 {
+pub fn area(contour: &[Vector2d]) -> f64 {
     let n = contour.len();
 
     let mut A = 0.0_f64;
@@ -10,8 +10,8 @@ fn area(contour: &Vec<Vector2d>) -> f64 {
     for i in range(0, n) {
         let q = i;
         let p = (n + i - 1) % n;
-        A += contour.get(p).get_x() * contour.get(q).get_y() 
-            - contour.get(q).get_x() * contour.get(p).get_y();
+        A += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
+            - contour.get(q).unwrap().get_x() * contour.get(p).unwrap().get_y();
     }
     
     A * 0.5_f64
@@ -19,7 +19,7 @@ fn area(contour: &Vec<Vector2d>) -> f64 {
 
 /// InsideTriangle decides if a point P is Inside of the triangle
 /// defined by A, B, C.
-fn inside_triangle(
+pub fn inside_triangle(
     Ax: f64, Ay: f64,
     Bx: f64, By: f64,
     Cx: f64, Cy: f64,
@@ -50,8 +50,8 @@ fn inside_triangle(
     )
 }
 
-fn snip(
-    contour: &Vec<Vector2d>,
+pub fn snip(
+    contour: &[Vector2d],
     u: uint,
     v: uint,
     w: uint,
@@ -59,14 +59,14 @@ fn snip(
     V: &mut Vec<uint>
 ) -> bool {
 
-    let Ax = contour.get(*V.get(u)).get_x();
-    let Ay = contour.get(*V.get(u)).get_y();
+    let Ax = contour.get(*V.get(u)).unwrap().get_x();
+    let Ay = contour.get(*V.get(u)).unwrap().get_y();
 
-    let Bx = contour.get(*V.get(v)).get_x();
-    let By = contour.get(*V.get(v)).get_y();
+    let Bx = contour.get(*V.get(v)).unwrap().get_x();
+    let By = contour.get(*V.get(v)).unwrap().get_y();
 
-    let Cx = contour.get(*V.get(w)).get_x();
-    let Cy = contour.get(*V.get(w)).get_y();
+    let Cx = contour.get(*V.get(w)).unwrap().get_x();
+    let Cy = contour.get(*V.get(w)).unwrap().get_y();
 
     if EPSILON > (((Bx-Ax)*(Cy-Ay)) - ((By-Ay)*(Cx-Ax))) {
         return false;
@@ -75,8 +75,8 @@ fn snip(
     for p in range(0, n) {
         if (p == u) || (p == v) || (p == w) { continue; }
 
-        let Px = contour.get(*V.get(p)).get_x();
-        let Py = contour.get(*V.get(p)).get_y();
+        let Px = contour.get(*V.get(p)).unwrap().get_x();
+        let Py = contour.get(*V.get(p)).unwrap().get_y();
 
         if inside_triangle(Ax,Ay,Bx,By,Cx,Cy,Px,Py) { return false; }
     }
@@ -84,8 +84,8 @@ fn snip(
     return true;
 }
 
-fn process(
-    contour: &Vec<Vector2d>
+pub fn process(
+    contour: &[Vector2d]
 ) -> Option<Vec<Vector2d>> {
     /* allocate and initialize list of Vertices in polygon */
 
@@ -138,9 +138,9 @@ fn process(
             let c = *V.get(w);
 
             /* output Triangle */
-            result.push(*contour.get(a));
-            result.push(*contour.get(b));
-            result.push(*contour.get(c));
+            result.push(*contour.get(a).unwrap());
+            result.push(*contour.get(b).unwrap());
+            result.push(*contour.get(c).unwrap());
 
             m += 1;
 
