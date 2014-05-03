@@ -113,9 +113,7 @@ pub fn process(
     let mut v = number_of_vertices - 1;
     while number_of_vertices > 2 {
         /* if we loop, it is probably a non-simple polygon */
-        if (0 >= count) {
-            count -= 1;
-
+        if count <= 0 {
             //** Triangulate: ERROR - probable bad polygon!
             return None;
         }

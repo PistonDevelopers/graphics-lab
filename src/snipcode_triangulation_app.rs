@@ -58,6 +58,9 @@ impl App {
             self.test_polygon_index,
             off
         );
+
+        // TEST
+        println!("test_polygon_index {}", self.test_polygon_index);
     }
 }
 
