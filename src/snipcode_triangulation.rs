@@ -11,7 +11,7 @@ pub fn area(contour: &[Vector2d]) -> f64 {
 
     for i in range(0, n) {
         let q = i;
-        let p = (i + n - 1) % n;
+        let p = vecmath::modular_offset_index(n, i, -1);
         A += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
             - contour.get(q).unwrap().get_x() * contour.get(p).unwrap().get_y();
     }
