@@ -62,14 +62,13 @@ pub fn snip(
     let v = triangle[1];
     let w = triangle[2];
 
-    let Ax = contour.get(*vertex_indices.get(u)).unwrap().get_x();
-    let Ay = contour.get(*vertex_indices.get(u)).unwrap().get_y();
-
-    let Bx = contour.get(*vertex_indices.get(v)).unwrap().get_x();
-    let By = contour.get(*vertex_indices.get(v)).unwrap().get_y();
-
-    let Cx = contour.get(*vertex_indices.get(w)).unwrap().get_x();
-    let Cy = contour.get(*vertex_indices.get(w)).unwrap().get_y();
+    let A = contour.get(*vertex_indices.get(u)).unwrap();
+    let B = contour.get(*vertex_indices.get(v)).unwrap();
+    let C = contour.get(*vertex_indices.get(w)).unwrap();
+    
+    let (Ax, Ay) = (A.get_x(), A.get_y());
+    let (Bx, By) = (B.get_x(), B.get_y());
+    let (Cx, Cy) = (C.get_x(), C.get_y());
 
     if EPSILON > (((Bx-Ax)*(Cy-Ay)) - ((By-Ay)*(Cx-Ax))) {
         return false;
