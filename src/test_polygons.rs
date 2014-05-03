@@ -1,7 +1,7 @@
 
 pub struct TestPolygon {
-    minimum_triangles: Option<u64>,
-    data: &'static [f64],
+    pub minimum_triangles: Option<u64>,
+    pub data: &'static [f64],
 }
 
 pub static SQUARE_COUNTER_CLOCKWISE: TestPolygon = TestPolygon {
