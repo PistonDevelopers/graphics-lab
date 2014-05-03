@@ -80,7 +80,7 @@ pub fn snip(
         if inside_triangle(Ax,Ay,Bx,By,Cx,Cy,P.get_x(),P.get_y()) { return false; }
     }
 
-    return true;
+    true
 }
 
 pub fn process(
