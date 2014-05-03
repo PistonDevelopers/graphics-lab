@@ -4,6 +4,7 @@ use piston::*;
 use graphics::*;
 
 // Local crate.
+use test_colors;
 use test_polygons;
 use conversion;
 use snipcode_triangulation;
@@ -18,15 +19,13 @@ impl Game for App {
         let triangles = triangles.unwrap();
         let triangles = conversion::to_vec_f64(triangles.as_slice());
         let n = triangles.len() / (3 * 2);
-
-        // TEST
-        // c.rect(0.0, 0.0, 1.0, 1.0).rgba(1.0, 0.0, 0.0, 1.0).fill(gl);
+        let colors = test_colors::ALL;
 
         for i in range(0, n) {
             let start = i * 3 * 2;
             let end = (i + 1) * 3 * 2;
             c.polygon(triangles.slice(start, end))
-            .rgba(1.0, 0.0, 0.0, 1.0).fill(gl);
+            .color(colors[i % colors.len()]).fill(gl);
         }
     }
 }
