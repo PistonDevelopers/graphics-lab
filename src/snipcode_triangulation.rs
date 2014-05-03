@@ -1,3 +1,6 @@
+use graphics::*;
+
+// Local crate.
 use Vector2d = vector2d::Vector2d;
 
 static EPSILON: f64 = 0.0000000001;
@@ -121,12 +124,9 @@ pub fn process(
         count -= 1;
 
         /* three consecutive vertices in current polygon, <u,v,w> */
-        let mut u = v  ;
-        if number_of_vertices <= u { u = 0; }     /* previous */
-        v = u+1;
-        if number_of_vertices <= v { v = 0; }    /* new v    */
-        let mut w = v+1;
-        if number_of_vertices <= w { w = 0; }     /* next     */
+        let u = v;
+        v = vecmath::modular_offset_index(number_of_vertices, v, 1);
+        let w = vecmath::modular_offset_index(number_of_vertices, v, 1);
 
         if snip(contour, u, v, w, number_of_vertices, &mut V) {
             /* true names of the vertices */
