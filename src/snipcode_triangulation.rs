@@ -56,20 +56,20 @@ pub fn snip(
     contour: &[Vector2d],
     triangle: [uint, ..3],
     n: uint,
-    V: &mut Vec<uint>
+    vertex_indices: &Vec<uint>
 ) -> bool {
     let u = triangle[0];
     let v = triangle[1];
     let w = triangle[2];
 
-    let Ax = contour.get(*V.get(u)).unwrap().get_x();
-    let Ay = contour.get(*V.get(u)).unwrap().get_y();
+    let Ax = contour.get(*vertex_indices.get(u)).unwrap().get_x();
+    let Ay = contour.get(*vertex_indices.get(u)).unwrap().get_y();
 
-    let Bx = contour.get(*V.get(v)).unwrap().get_x();
-    let By = contour.get(*V.get(v)).unwrap().get_y();
+    let Bx = contour.get(*vertex_indices.get(v)).unwrap().get_x();
+    let By = contour.get(*vertex_indices.get(v)).unwrap().get_y();
 
-    let Cx = contour.get(*V.get(w)).unwrap().get_x();
-    let Cy = contour.get(*V.get(w)).unwrap().get_y();
+    let Cx = contour.get(*vertex_indices.get(w)).unwrap().get_x();
+    let Cy = contour.get(*vertex_indices.get(w)).unwrap().get_y();
 
     if EPSILON > (((Bx-Ax)*(Cy-Ay)) - ((By-Ay)*(Cx-Ax))) {
         return false;
@@ -78,8 +78,8 @@ pub fn snip(
     for p in range(0, n) {
         if (p == u) || (p == v) || (p == w) { continue; }
 
-        let Px = contour.get(*V.get(p)).unwrap().get_x();
-        let Py = contour.get(*V.get(p)).unwrap().get_y();
+        let Px = contour.get(*vertex_indices.get(p)).unwrap().get_x();
+        let Py = contour.get(*vertex_indices.get(p)).unwrap().get_y();
 
         if inside_triangle(Ax,Ay,Bx,By,Cx,Cy,Px,Py) { return false; }
     }
