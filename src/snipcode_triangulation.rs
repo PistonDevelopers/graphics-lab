@@ -113,7 +113,6 @@ pub fn process(
     /*  remove nv-2 Vertices, creating 1 triangle every time */
     let mut count = 2 * number_of_vertices;   /* error detection */
 
-    let mut m = 0;
     let mut v = number_of_vertices - 1;
     while number_of_vertices > 2 {
         /* if we loop, it is probably a non-simple polygon */
@@ -136,8 +135,6 @@ pub fn process(
             for &i in triangle.iter() {
                 result.push(*contour.get(*vertex_indices.get(i)).unwrap());
             }
-
-            m += 1;
 
             /* remove v from remaining polygon */
             for i in range(0, number_of_vertices - 3) {
