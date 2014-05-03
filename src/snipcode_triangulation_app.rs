@@ -2,6 +2,7 @@
 // Extern crates.
 use piston::*;
 use graphics::*;
+use graphics::modular_index::{offset};
 use glfw;
 
 // Local crate.
@@ -53,7 +54,7 @@ impl App {
     }
 
     fn switch_test_polygon(&mut self, off: int) {
-        self.test_polygon_index = vecmath::modular_offset_index(
+        self.test_polygon_index = offset(
             test_polygons::ALL.len(),
             self.test_polygon_index,
             off
