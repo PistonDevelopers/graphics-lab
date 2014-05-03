@@ -4,6 +4,11 @@ pub struct TestPolygon {
     pub data: &'static [f64],
 }
 
+pub static ALL: &'static [TestPolygon] = &[
+    SQUARE_CLOCKWISE,
+    SQUARE_COUNTER_CLOCKWISE,
+];
+
 pub static SQUARE_COUNTER_CLOCKWISE: TestPolygon = TestPolygon {
     minimum_triangles: Some(2),
     data: &[
