@@ -11,7 +11,7 @@ pub fn area(contour: &[Vector2d]) -> f64 {
 
     for i in range(0, n) {
         let q = i;
-        let p = vecmath::modular_offset_index(n, i, -1);
+        let p = vecmath::modular_previous(n, i);
         A += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
             - contour.get(q).unwrap().get_x() * contour.get(p).unwrap().get_y();
     }
@@ -127,7 +127,7 @@ pub fn process(
         /* three consecutive vertices in current polygon, <u,v,w> */
         let triangle = [
             v,
-            vecmath::modular_offset_index(number_of_vertices, v, 1),
+            vecmath::modular_next(number_of_vertices, v),
             vecmath::modular_offset_index(number_of_vertices, v, 2)
         ];
         v = triangle[1];
