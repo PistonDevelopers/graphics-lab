@@ -105,9 +105,12 @@ pub fn process(
     if 0.0_f64 < area(contour) {
         for v in range(0, n) { vertex_indices.push(v); }
     } else {
+        // Add indices in reverse order.
         for v in range(0, n) { vertex_indices.push((n-1)-v); }
     }
 
+    // Stores the number of vertices.
+    // Used instead of `vertex_indices.len()` to emulate removing of vertices.
     let mut number_of_vertices = n;
 
     /*  remove nv-2 Vertices, creating 1 triangle every time */
