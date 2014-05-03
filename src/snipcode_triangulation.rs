@@ -104,14 +104,14 @@ pub fn process(
         for v in range(0, n) { V.push((n-1)-v); }
     }
 
-    let mut nv = n;
+    let mut number_of_vertices = n;
 
     /*  remove nv-2 Vertices, creating 1 triangle every time */
-    let mut count = 2*nv;   /* error detection */
+    let mut count = 2 * number_of_vertices;   /* error detection */
 
     let mut m = 0;
-    let mut v = nv-1;
-    while nv>2 {
+    let mut v = number_of_vertices - 1;
+    while number_of_vertices > 2 {
         /* if we loop, it is probably a non-simple polygon */
         if (0 >= count) {
             count -= 1;
@@ -124,13 +124,13 @@ pub fn process(
 
         /* three consecutive vertices in current polygon, <u,v,w> */
         let mut u = v  ;
-        if nv <= u { u = 0; }     /* previous */
+        if number_of_vertices <= u { u = 0; }     /* previous */
         v = u+1;
-        if nv <= v { v = 0; }    /* new v    */
+        if number_of_vertices <= v { v = 0; }    /* new v    */
         let mut w = v+1;
-        if nv <= w { w = 0; }     /* next     */
+        if number_of_vertices <= w { w = 0; }     /* next     */
 
-        if snip(contour, u, v, w, nv, &mut V) {
+        if snip(contour, u, v, w, number_of_vertices, &mut V) {
             /* true names of the vertices */
             let a = *V.get(u);
             let b = *V.get(v);
@@ -144,17 +144,18 @@ pub fn process(
             m += 1;
 
             /* remove v from remaining polygon */
-            for i in range(0, nv-1) {
+            for i in range(0, number_of_vertices - 3) {
                 let s = v + i;
                 let t = v + i + 1;
+
                 *V.get_mut(s) = *V.get(t);
             }
 
-            // Perhaps this should be added to the for-loop above?
-            nv -= 1;
+            // "Removed" a vertex.
+            number_of_vertices -= 1;
 
             /* resest error detection counter */
-            count = 2*nv;
+            count = 2 * number_of_vertices;
         }
     }
 
