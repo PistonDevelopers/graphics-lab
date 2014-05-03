@@ -76,10 +76,8 @@ pub fn snip(
         // Do not check for any of the vertices in the triangle.
         if (p == u) || (p == v) || (p == w) { continue; }
 
-        let Px = contour.get(*vertex_indices.get(p)).unwrap().get_x();
-        let Py = contour.get(*vertex_indices.get(p)).unwrap().get_y();
-
-        if inside_triangle(Ax,Ay,Bx,By,Cx,Cy,Px,Py) { return false; }
+        let P = contour.get(*vertex_indices.get(p)).unwrap();
+        if inside_triangle(Ax,Ay,Bx,By,Cx,Cy,P.get_x(),P.get_y()) { return false; }
     }
 
     return true;
