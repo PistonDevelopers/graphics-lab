@@ -9,6 +9,7 @@ use piston::*;
 
 mod vector2d;
 mod test_polygons;
+mod test_colors;
 mod snipcode_triangulation;
 mod conversion;
 
