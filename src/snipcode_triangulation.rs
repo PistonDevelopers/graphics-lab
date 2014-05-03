@@ -4,16 +4,15 @@ static EPSILON: f64 = 0.0000000001;
 
 pub fn area(contour: &[Vector2d]) -> f64 {
     let n = contour.len();
-
     let mut A = 0.0_f64;
 
     for i in range(0, n) {
         let q = i;
-        let p = (n + i - 1) % n;
+        let p = (i + n - 1) % n;
         A += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
             - contour.get(q).unwrap().get_x() * contour.get(p).unwrap().get_y();
     }
-    
+
     A * 0.5_f64
 }
 
@@ -100,9 +99,9 @@ pub fn process(
     // Computes the area which has opposite signs
     // whether the polygon is clock-wise or counter-clockwise.
     if 0.0_f64 < area(contour) {
-        for v in range(0, n) { *V.get_mut(v) = v; }
+        for v in range(0, n) { V.push(v); }
     } else {
-        for v in range(0, n) { *V.get_mut(v) = (n-1)-v; }
+        for v in range(0, n) { V.push((n-1)-v); }
     }
 
     let mut nv = n;
