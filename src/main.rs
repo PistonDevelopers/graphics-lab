@@ -8,10 +8,12 @@ extern crate piston;
 use piston::*;
 
 mod vector2d;
-mod empty_app;
 mod test_polygons;
 mod snipcode_triangulation;
 mod conversion;
+
+mod empty_app;
+mod snipcode_triangulation_app;
 
 fn main() {
     // Create window.
@@ -23,8 +25,9 @@ fn main() {
     );
 
     // Create application.
-    let mut app = empty_app::EmptyApp::new();
-    
+    let mut app = empty_app::App::new();
+    // let mut app = snipcode_triangulation_app::App::new();    
+
     // Run application.
     app.run(&window);
 }

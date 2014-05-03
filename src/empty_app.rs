@@ -1,13 +1,11 @@
 
-use piston;
-use graphics;
 use graphics::*;
 use piston::*;
 use glfw::{Key};
 
-pub struct EmptyApp;
+pub struct App;
 
-impl Game for EmptyApp {
+impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
 
     }
@@ -29,9 +27,9 @@ impl Game for EmptyApp {
     }
 }
 
-impl EmptyApp {
-    pub fn new() -> EmptyApp {
-        EmptyApp
+impl App {
+    pub fn new() -> App {
+        App
     }
 }
 
