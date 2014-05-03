@@ -111,7 +111,9 @@ pub fn process(
     let mut number_of_vertices = n;
 
     /*  remove nv-2 Vertices, creating 1 triangle every time */
-    let mut count = 2 * number_of_vertices;   /* error detection */
+
+    // Used for error detection.
+    let mut count = 2 * number_of_vertices;
 
     let mut v = number_of_vertices - 1;
     while number_of_vertices > 2 {
