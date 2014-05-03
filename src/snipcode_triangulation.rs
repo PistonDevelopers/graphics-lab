@@ -124,12 +124,15 @@ pub fn process(
         count -= 1;
 
         /* three consecutive vertices in current polygon, <u,v,w> */
-        let u = v;
-        v = vecmath::modular_offset_index(number_of_vertices, v, 1);
-        let w = vecmath::modular_offset_index(number_of_vertices, v, 1);
+        let triangle = [
+            v,
+            vecmath::modular_offset_index(number_of_vertices, v, 1),
+            vecmath::modular_offset_index(number_of_vertices, v, 2)
+        ];
+        v = triangle[1];
 
-        if snip(contour, u, v, w, number_of_vertices, &mut V) {
-            for &i in [u, v, w].iter() {
+        if snip(contour, triangle[0], triangle[1], triangle[2], number_of_vertices, &mut V) {
+            for &i in triangle.iter() {
                 result.push(*contour.get(*V.get(i)).unwrap());
             }
 
