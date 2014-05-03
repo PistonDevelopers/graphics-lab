@@ -51,10 +51,11 @@ impl App {
     }
 
     fn switch_test_polygon(&mut self, off: int) {
-        let n = test_polygons::ALL.len();
-        let off = (off % n as int + n as int) as uint;
-        self.test_polygon_index =
-            (self.test_polygon_index + off) % n;
+        self.test_polygon_index = vecmath::modular_offset_index(
+            test_polygons::ALL.len(),
+            self.test_polygon_index,
+            off
+        );
     }
 }
 
