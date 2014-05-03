@@ -2,6 +2,7 @@
 // Extern crates.
 use piston::*;
 use graphics::*;
+use glfw;
 
 // Local crate.
 use test_colors;
@@ -9,11 +10,13 @@ use test_polygons;
 use conversion;
 use snipcode_triangulation;
 
-pub struct App;
+pub struct App {
+    test_polygon_index: uint,
+}
 
 impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
-        let polygon = test_polygons::SQUARE_CLOCKWISE;
+        let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
         let triangles = snipcode_triangulation::process(polygon.as_slice());
         let triangles = triangles.unwrap();
@@ -28,11 +31,30 @@ impl Game for App {
             .color(colors[i % colors.len()]).fill(gl);
         }
     }
+
+    fn key_press(&mut self, key: glfw::Key) {
+        if key == glfw::KeyUp {
+            self.switch_test_polygon(1);
+        } else if key == glfw::KeyDown {
+            self.switch_test_polygon(-1);
+        }
+    }
+
+    
 }
 
 impl App {
     pub fn new() -> App {
-        App
+        App {
+            test_polygon_index: 0,
+        }
+    }
+
+    fn switch_test_polygon(&mut self, off: int) {
+        let n = test_polygons::ALL.len();
+        let off = (off % n as int + n as int) as uint;
+        self.test_polygon_index =
+            (self.test_polygon_index + off) % n;
     }
 }
 
