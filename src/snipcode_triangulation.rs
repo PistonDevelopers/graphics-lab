@@ -28,16 +28,16 @@ pub fn inside_triangle(
     p_x: f64, p_y: f64
 ) -> bool {
     
-    let (ax, ay) = (c_x - b_x, c_y - b_y);
-    let (bx, by) = (a_x - c_x, a_y - c_y);
-    let (cx, cy) = (b_x - a_x, b_y - a_y);
+    let (bcx, bcy) = (c_x - b_x, c_y - b_y);
+    let (cax, cay) = (a_x - c_x, a_y - c_y);
+    let (abx, aby) = (b_x - a_x, b_y - a_y);
     let (apx, apy) = (p_x - a_x, p_y - a_y);
     let (bpx, bpy) = (p_x - b_x, p_y - b_y);
     let (cpx, cpy) = (p_x - c_x, p_y - c_y);
 
-    let aCROSSbp = ax*bpy - ay*bpx;
-    let cCROSSap = cx*apy - cy*apx;
-    let bCROSScp = bx*cpy - by*cpx;
+    let aCROSSbp = bcx*bpy - bcy*bpx;
+    let cCROSSap = abx*apy - aby*apx;
+    let bCROSScp = cax*cpy - cay*cpx;
 
     (
         (aCROSSbp >= 0.0_f64) 
