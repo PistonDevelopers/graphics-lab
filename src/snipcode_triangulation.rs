@@ -35,15 +35,13 @@ pub fn inside_triangle(
     let (bpx, bpy) = (p_x - b_x, p_y - b_y);
     let (cpx, cpy) = (p_x - c_x, p_y - c_y);
 
-    let aCROSSbp = bcx*bpy - bcy*bpx;
-    let cCROSSap = abx*apy - aby*apx;
-    let bCROSScp = cax*cpy - cay*cpx;
+    let bc_cross_bp = bcx * bpy - bcy * bpx;
+    let ab_cross_ap = abx * apy - aby * apx;
+    let ca_cross_cp = cax * cpy - cay * cpx;
 
-    (
-        (aCROSSbp >= 0.0_f64) 
-        && (bCROSScp >= 0.0_f64) 
-        && (cCROSSap >= 0.0_f64)
-    )
+    bc_cross_bp >= 0.0_f64
+    && ca_cross_cp >= 0.0_f64
+    && ab_cross_ap >= 0.0_f64
 }
 
 pub fn snip(
