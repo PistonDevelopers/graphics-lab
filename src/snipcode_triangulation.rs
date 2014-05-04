@@ -1,4 +1,3 @@
-use graphics::*;
 use graphics::modular_index::{offset, previous, next};
 
 // Local crate.
@@ -8,39 +7,39 @@ static EPSILON: f64 = 0.0000000001;
 
 pub fn area(contour: &[Vector2d]) -> f64 {
     let n = contour.len();
-    let mut A = 0.0_f64;
+    let mut sum = 0.0_f64;
 
     for i in range(0, n) {
         let q = i;
         let p = previous(n, i);
-        A += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
+        sum += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
             - contour.get(q).unwrap().get_x() * contour.get(p).unwrap().get_y();
     }
 
-    A * 0.5_f64
+    sum * 0.5_f64
 }
 
 /// InsideTriangle decides if a point P is Inside of the triangle
 /// defined by A, B, C.
 pub fn inside_triangle(
-    Ax: f64, Ay: f64,
-    Bx: f64, By: f64,
-    Cx: f64, Cy: f64,
-    Px: f64, Py: f64
+    a_x: f64, a_y: f64,
+    b_x: f64, b_y: f64,
+    c_x: f64, c_y: f64,
+    p_x: f64, p_y: f64
 ) -> bool {
     
-    let ax = Cx - Bx;
-    let ay = Cy - By;
-    let bx = Ax - Cx;
-    let by = Ay - Cy;
-    let cx = Bx - Ax;
-    let cy = By - Ay;
-    let apx = Px - Ax;
-    let apy = Py - Ay;
-    let bpx = Px - Bx;
-    let bpy = Py - By;
-    let cpx = Px - Cx;
-    let cpy = Py - Cy;
+    let ax = c_x - b_x;
+    let ay = c_y - b_y;
+    let bx = a_x - c_x;
+    let by = a_y - c_y;
+    let cx = b_x - a_x;
+    let cy = b_y - a_y;
+    let apx = p_x - a_x;
+    let apy = p_y - a_y;
+    let bpx = p_x - b_x;
+    let bpy = p_y - b_y;
+    let cpx = p_x - c_x;
+    let cpy = p_y - c_y;
 
     let aCROSSbp = ax*bpy - ay*bpx;
     let cCROSSap = cx*apy - cy*apx;
@@ -61,15 +60,15 @@ pub fn snip(
 ) -> bool {
     let (u, v, w) = (triangle[0], triangle[1], triangle[2]);
 
-    let A = contour.get(*vertex_indices.get(u)).unwrap();
-    let B = contour.get(*vertex_indices.get(v)).unwrap();
-    let C = contour.get(*vertex_indices.get(w)).unwrap();
+    let a_pos = contour.get(*vertex_indices.get(u)).unwrap();
+    let b_pos = contour.get(*vertex_indices.get(v)).unwrap();
+    let c_pos = contour.get(*vertex_indices.get(w)).unwrap();
     
-    let (Ax, Ay) = (A.get_x(), A.get_y());
-    let (Bx, By) = (B.get_x(), B.get_y());
-    let (Cx, Cy) = (C.get_x(), C.get_y());
+    let (ax, ay) = (a_pos.get_x(), a_pos.get_y());
+    let (bx, by) = (b_pos.get_x(), b_pos.get_y());
+    let (cx, cy) = (c_pos.get_x(), c_pos.get_y());
 
-    if EPSILON > (((Bx-Ax)*(Cy-Ay)) - ((By-Ay)*(Cx-Ax))) {
+    if EPSILON > (((bx-ax)*(cy-ay)) - ((by-ay)*(cx-ax))) {
         return false;
     }
 
@@ -77,8 +76,8 @@ pub fn snip(
         // Do not check for any of the vertices in the triangle.
         if (p == u) || (p == v) || (p == w) { continue; }
 
-        let P = contour.get(*vertex_indices.get(p)).unwrap();
-        if inside_triangle(Ax,Ay,Bx,By,Cx,Cy,P.get_x(),P.get_y()) { return false; }
+        let p_pos = contour.get(*vertex_indices.get(p)).unwrap();
+        if inside_triangle(ax,ay,bx,by,cx,cy,p_pos.get_x(),p_pos.get_y()) { return false; }
     }
 
     true

@@ -1,3 +1,5 @@
+// Allow dead code since this is an example app.
+#![allow(dead_code)]
 
 use graphics::*;
 use piston::*;
@@ -6,11 +8,11 @@ use glfw::{Key};
 pub struct App;
 
 impl Game for App {
-    fn render(&self, c: &Context, gl: &mut Gl) {
+    fn render(&self, _c: &Context, _gl: &mut Gl) {
 
     }
 
-    fn update(&mut self, dt: f64) {
+    fn update(&mut self, _dt: f64) {
 
     }
 
@@ -18,11 +20,11 @@ impl Game for App {
 
     }
 
-    fn key_press(&mut self, key: Key) {
+    fn key_press(&mut self, _key: Key) {
 
     }
 
-    fn key_release(&mut self, key: Key) {
+    fn key_release(&mut self, _key: Key) {
 
     }
 }

@@ -1,3 +1,5 @@
+// Not all functions needs to be called.
+#![allow(dead_code)]
 
 /// Makes it easier to test translated algorithms from other languages.
 #[deriving(Eq)]
