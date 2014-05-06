@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 
 // Extern crates.
 use piston::*;

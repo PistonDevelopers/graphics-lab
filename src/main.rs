@@ -15,6 +15,7 @@ mod conversion;
 
 mod empty_app;
 mod snipcode_triangulation_app;
+mod texture_test_app;
 
 #[start]
 fn start(argc: int, argv: **u8) -> int {
@@ -33,7 +34,8 @@ fn main() {
 
     // Create application.
     // let mut app = empty_app::App::new();
-    let mut app = snipcode_triangulation_app::App::new();    
+    // let mut app = snipcode_triangulation_app::App::new();    
+    let mut app = texture_test_app::App::new();
 
     // Run application.
     app.run(&window);
