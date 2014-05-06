@@ -32,12 +32,14 @@ fn main() {
         }
     );
 
+    let mut asset_store = AssetStore::empty();
+
     // Create application.
     // let mut app = empty_app::App::new();
     // let mut app = snipcode_triangulation_app::App::new();    
     let mut app = texture_test_app::App::new();
 
     // Run application.
-    app.run(&window);
+    app.run(&window, &mut asset_store);
 }
 

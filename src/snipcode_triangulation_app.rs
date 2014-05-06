@@ -36,7 +36,7 @@ impl Game for App {
         }
     }
 
-    fn key_press(&mut self, key: glfw::Key) {
+    fn key_press(&mut self, key: glfw::Key, _asset_store: &mut AssetStore) {
         if key == glfw::KeyUp {
             self.switch_test_polygon(1);
         } else if key == glfw::KeyDown {

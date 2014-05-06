@@ -12,19 +12,19 @@ impl Game for App {
 
     }
 
-    fn update(&mut self, _dt: f64) {
+    fn update(&mut self, _dt: f64, _asset_store: &mut AssetStore) {
 
     }
 
-    fn load(&mut self) {
+    fn load(&mut self, _asset_store: &mut AssetStore) {
 
     }
 
-    fn key_press(&mut self, _key: Key) {
+    fn key_press(&mut self, _key: Key, _asset_store: &mut AssetStore) {
 
     }
 
-    fn key_release(&mut self, _key: Key) {
+    fn key_release(&mut self, _key: Key, _asset_store: &mut AssetStore) {
 
     }
 }
