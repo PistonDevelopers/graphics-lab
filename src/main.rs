@@ -32,7 +32,7 @@ fn main() {
         }
     );
 
-    let mut asset_store = AssetStore::empty();
+    let mut asset_store = AssetStore::from_folder("assets");
 
     // Create application.
     // let mut app = empty_app::App::new();
