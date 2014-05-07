@@ -12,7 +12,10 @@ pub struct App {
 
 impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
-        c.rect(0.0, 0.0, 0.5, 0.5).image(self.image.unwrap()).draw(gl);
+        c.rect(0.0, 0.0, 0.5, 0.5)
+        .image(self.image.unwrap())
+        .rgba(1.0, 1.0, 0.0, 0.2)
+        .draw(gl);
     }
 
     fn update(&mut self, _dt: f64, _asset_store: &mut AssetStore) {
