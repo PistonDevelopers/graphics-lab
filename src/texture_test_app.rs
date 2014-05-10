@@ -7,12 +7,14 @@ use piston::*;
 use glfw::{Key};
 
 pub struct App {
-    image: Option<Image> 
+    image: Option<Image>,
+    image2: Option<Image>, 
 }
 
 impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
-        c.view().image(self.image.unwrap()).shade(0.5).draw(gl);
+        c.view().grey(0.5).image(self.image.unwrap()).draw(gl);
+        c.view().trans(0.5, -0.5).image(self.image2.unwrap()).draw(gl);
     }
 
     fn update(&mut self, _dt: f64, _asset_store: &mut AssetStore) {
@@ -21,6 +23,7 @@ impl Game for App {
 
     fn load(&mut self, asset_store: &mut AssetStore) {
         self.image = Some(asset_store.load_image("dices.png"));
+        self.image2 = Some(asset_store.load_image("dices.png"));
     }
 
     fn key_press(&mut self, _key: Key, _asset_store: &mut AssetStore) {
@@ -36,6 +39,7 @@ impl App {
     pub fn new() -> App {
         App {
             image: None,
+            image2: None,
         }
     }
 }

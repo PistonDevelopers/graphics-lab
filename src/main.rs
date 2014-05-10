@@ -1,7 +1,7 @@
 #![feature(globs)]
 
-extern crate opengles;
 extern crate graphics;
+extern crate opengles;
 extern crate glfw;
 extern crate piston;
 
