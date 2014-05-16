@@ -8,11 +8,11 @@ use piston::*;
 mod vector2d;
 mod test_polygons;
 mod test_colors;
-mod snipcode_triangulation;
+mod triangulation;
 mod conversion;
 
 mod empty_app;
-mod snipcode_triangulation_app;
+mod triangulation_app;
 mod texture_test_app;
 mod line_app;
 mod mouse_app;

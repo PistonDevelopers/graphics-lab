@@ -9,7 +9,7 @@ use graphics::modular_index::{offset};
 use test_colors;
 use test_polygons;
 use conversion;
-use snipcode_triangulation;
+use triangulation;
 
 pub struct App {
     test_polygon_index: uint,
@@ -19,7 +19,7 @@ impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
-        let triangles = snipcode_triangulation::process(polygon.as_slice());
+        let triangles = triangulation::process(polygon.as_slice());
         if triangles == None { return; }
 
         let triangles = triangles.unwrap();
