@@ -15,6 +15,7 @@ mod empty_app;
 mod snipcode_triangulation_app;
 mod texture_test_app;
 mod line_app;
+mod mouse_app;
 
 // pub type GameWindowBackEnd = GameWindowSDL2;
 pub type GameWindowBackEnd = GameWindowGLFW;
@@ -43,7 +44,8 @@ fn main() {
     // let mut app = empty_app::App::new();
     // let mut app = snipcode_triangulation_app::App::new();    
     // let mut app = texture_test_app::App::new();
-    let mut app = line_app::App::new();
+    // let mut app = line_app::App::new();
+    let mut app = mouse_app::App::new();
 
     // Run application.
     app.run(&mut window, &mut asset_store);
