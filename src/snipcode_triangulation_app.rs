@@ -10,15 +10,12 @@ use test_colors;
 use test_polygons;
 use conversion;
 use snipcode_triangulation;
-use {
-    GameWindowBackEnd,
-};
 
 pub struct App {
     test_polygon_index: uint,
 }
 
-impl Game<GameWindowBackEnd> for App {
+impl<T: GameWindow> Game<T> for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);

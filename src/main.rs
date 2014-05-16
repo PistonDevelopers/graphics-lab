@@ -17,9 +17,6 @@ mod texture_test_app;
 mod line_app;
 mod mouse_app;
 
-// pub type GameWindowBackEnd = GameWindowSDL2;
-pub type GameWindowBackEnd = GameWindowGLFW;
-
 #[start]
 fn start(argc: int, argv: **u8) -> int {
     // Run GLFW on the main thread.
@@ -28,7 +25,7 @@ fn start(argc: int, argv: **u8) -> int {
 
 fn main() {
     // Create window.
-    let mut window = GameWindow::new(
+    let mut window: GameWindowSDL2 = GameWindow::new(
         GameWindowSettings::new (
             "Rust-Graphics-Lab".to_owned(),
             [300, 300],

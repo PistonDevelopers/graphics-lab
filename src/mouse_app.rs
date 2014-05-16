@@ -1,9 +1,6 @@
 
 use piston::*;
 use graphics::*;
-use {
-    GameWindowBackEnd,
-};
 
 pub struct App;
 
@@ -13,7 +10,7 @@ impl App {
     }
 }
 
-impl Game<GameWindowBackEnd> for App {
+impl<T: GameWindow> Game<T> for App {
     fn mouse_move(&mut self, x: f64, y: f64, _asset_store: &mut AssetStore) {
         println!("{} {}", x, y);
     }

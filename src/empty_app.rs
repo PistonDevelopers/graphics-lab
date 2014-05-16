@@ -3,13 +3,10 @@
 
 // use graphics::*;
 use piston::*;
-use {
-    GameWindowBackEnd,
-};
 
 pub struct App;
 
-impl Game<GameWindowBackEnd> for App {
+impl<T: GameWindow> Game<T> for App {
 }
 
 impl App {
