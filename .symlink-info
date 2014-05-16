@@ -17,7 +17,7 @@ https://github.com/bvssvni/rust-opengles.git
   origin/rustup_20140516
 
 target/x86_64-apple-darwin/lib/libpiston-a1b791b5-0.0.rlib
-51e011c6927c1ccb9a406e8bd7f549221643b7aa
+86d96c2c5105fe4b557d85b2b90370363b456bc6
 https://github.com/bvssvni/piston.git
   origin/HEAD -> origin/master
   origin/master
