@@ -6,7 +6,7 @@ use piston::*;
 
 pub struct App;
 
-impl<T: GameWindow> Game<T> for App {
+impl Game for App {
 }
 
 impl App {

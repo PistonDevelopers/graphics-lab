@@ -15,7 +15,7 @@ pub struct App {
     test_polygon_index: uint,
 }
 
-impl<T: GameWindow> Game<T> for App {
+impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);

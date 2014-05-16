@@ -10,7 +10,7 @@ pub struct App {
     image2: Option<Image>, 
 }
 
-impl<T: GameWindow> Game<T> for App {
+impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
         c.view().grey(0.5).image(self.image.unwrap()).draw(gl);
         c.view().trans(0.5, -0.5).image(self.image2.unwrap()).draw(gl);

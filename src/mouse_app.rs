@@ -10,7 +10,7 @@ impl App {
     }
 }
 
-impl<T: GameWindow> Game<T> for App {
+impl Game for App {
     fn mouse_move(&mut self, x: f64, y: f64, _asset_store: &mut AssetStore) {
         println!("{} {}", x, y);
     }

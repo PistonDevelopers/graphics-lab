@@ -11,7 +11,7 @@ fn return_test(c: &Context) -> BevelRectangleContext {
     c.rect(0.0, 0.0, 0.5, 0.5).bevel(0.1).clone()
 }    
 
-impl<T: GameWindow> Game<T> for App {
+impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
         c.line(0.0, 0.0, 0.5, 0.5).square_border_radius(0.1).rgb(1.0, 0.0, 0.0).stroke(gl);
         match return_test(c) {
