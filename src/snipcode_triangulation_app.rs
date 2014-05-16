@@ -4,19 +4,21 @@
 use piston::*;
 use graphics::*;
 use graphics::modular_index::{offset};
-use glfw;
 
 // Local crate.
 use test_colors;
 use test_polygons;
 use conversion;
 use snipcode_triangulation;
+use {
+    GameWindowBackEnd,
+};
 
 pub struct App {
     test_polygon_index: uint,
 }
 
-impl Game for App {
+impl Game<GameWindowBackEnd> for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
@@ -36,10 +38,10 @@ impl Game for App {
         }
     }
 
-    fn key_press(&mut self, key: glfw::Key, _asset_store: &mut AssetStore) {
-        if key == glfw::KeyUp {
+    fn key_press(&mut self, key: keyboard::Key, _asset_store: &mut AssetStore) {
+        if key == keyboard::Up {
             self.switch_test_polygon(1);
-        } else if key == glfw::KeyDown {
+        } else if key == keyboard::Down {
             self.switch_test_polygon(-1);
         }
     }

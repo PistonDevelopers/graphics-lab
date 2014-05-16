@@ -1,8 +1,6 @@
 #![feature(globs)]
 
 extern crate graphics;
-extern crate opengles;
-extern crate glfw;
 extern crate piston;
 
 use piston::*;
@@ -18,6 +16,9 @@ mod snipcode_triangulation_app;
 mod texture_test_app;
 mod line_app;
 
+// pub type GameWindowBackEnd = GameWindowSDL2;
+pub type GameWindowBackEnd = GameWindowGLFW;
+
 #[start]
 fn start(argc: int, argv: **u8) -> int {
     // Run GLFW on the main thread.
@@ -26,11 +27,14 @@ fn start(argc: int, argv: **u8) -> int {
 
 fn main() {
     // Create window.
-    let window = GameWindow::window("Rust-Graphics-Lab", 300, 300,
-        GameWindowSettings {
-            exit_on_esc: true,
-            background_color: [1.0, 1.0, 1.0, 1.0]
-        }
+    let mut window = GameWindow::new(
+        GameWindowSettings::new (
+            "Rust-Graphics-Lab".to_owned(),
+            [300, 300],
+            false,
+            true,
+            [1.0, 1.0, 1.0, 1.0]
+        )
     );
 
     let mut asset_store = AssetStore::from_folder("assets");
@@ -42,6 +46,6 @@ fn main() {
     let mut app = line_app::App::new();
 
     // Run application.
-    app.run(&window, &mut asset_store);
+    app.run(&mut window, &mut asset_store);
 }
 
