@@ -40,9 +40,9 @@ fn main() {
     // Create application.
     // let mut app = empty_app::App::new();
     // let mut app = snipcode_triangulation_app::App::new();    
-    // let mut app = texture_test_app::App::new();
+    let mut app = texture_test_app::App::new();
     // let mut app = line_app::App::new();
-    let mut app = mouse_app::App::new();
+    // let mut app = mouse_app::App::new();
 
     // Run application.
     app.run(&mut window, &mut asset_store);
