@@ -7,16 +7,20 @@ use piston::*;
 
 pub struct App;
 
-fn return_test(c: &Context) -> BevelRectangleContext {
-    c.rect(0.0, 0.0, 0.5, 0.5).bevel(0.1).clone()
-}    
-
 impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
-        c.line(0.0, 0.0, 0.5, 0.5).square_border_radius(0.1).rgb(1.0, 0.0, 0.0).stroke(gl);
-        match return_test(c) {
-            c => c.rgb(0.0, 1.0, 0.0).fill(gl)
-        };
+        let c = c.reset();
+        let line = c.line(0.0, 0.0, 0.5, 0.5);
+        let line = line.round_border_radius(0.1);
+        let line = line.rgb(1.0, 1.0, 0.0);
+        let n = 200;
+        let (start, end) = (-0.75, 0.5);
+        for i in range(0, n + 1) {
+            let f = i as f64 / n as f64;
+            line.trans(f * (end - start) + start, 0.0)
+            .hue_deg(f as f32 * 360.0)
+            .stroke(gl);
+        }
     }
 }
 

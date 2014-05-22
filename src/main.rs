@@ -25,10 +25,10 @@ fn start(argc: int, argv: **u8) -> int {
 
 fn main() {
     // Create window.
-    let mut window: GameWindowGLFW = GameWindow::new(
+    let mut window: GameWindowSDL2 = GameWindow::new(
         GameWindowSettings::new (
             "Rust-Graphics-Lab".to_owned(),
-            [300, 300],
+            [600, 300],
             false,
             true,
             [1.0, 1.0, 1.0, 1.0]

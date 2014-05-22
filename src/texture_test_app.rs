@@ -12,8 +12,10 @@ pub struct App {
 
 impl Game for App {
     fn render(&self, c: &Context, gl: &mut Gl) {
-        // c.view().grey(0.5).image(self.image.unwrap()).draw(gl);
-        c.view().image(self.image2.unwrap()).draw(gl);
+        let offset = 150.0;
+        c.trans(0.0, offset).image(self.image.unwrap()).draw(gl);
+        c.trans(offset, 0.0).image(self.image2.unwrap()).draw(gl);
+        c.trans(offset, offset).image(self.image2.unwrap()).draw(gl);
     }
 
     fn load(&mut self, asset_store: &mut AssetStore) {
