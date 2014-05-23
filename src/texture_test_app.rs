@@ -19,8 +19,8 @@ impl Game for App {
     }
 
     fn load(&mut self, asset_store: &mut AssetStore) {
-        self.image = Some(asset_store.load_image("dices.png"));
-        self.image2 = Some(asset_store.load_image("dices.png"));
+        self.image = Some(asset_store.load_image("dices.png").unwrap());
+        self.image2 = Some(asset_store.load_image("dices.png").unwrap());
     }
 }
 
