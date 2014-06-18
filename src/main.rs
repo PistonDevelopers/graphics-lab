@@ -1,5 +1,6 @@
 #![feature(globs)]
 
+extern crate debug;
 extern crate graphics;
 extern crate piston;
 
@@ -26,13 +27,13 @@ fn start(argc: int, argv: **u8) -> int {
 fn main() {
     // Create window.
     let mut window: GameWindowSDL2 = GameWindow::new(
-        GameWindowSettings::new (
-            "Rust-Graphics-Lab".to_owned(),
-            [600, 300],
-            false,
-            true,
-            [1.0, 1.0, 1.0, 1.0]
-        )
+        GameWindowSettings {
+            title: "Rust-Graphics-Lab".to_owned(),
+            size: [600, 300],
+            fullscreen: false,
+            exit_on_esc: true,
+            background_color: [1.0, 1.0, 1.0, 1.0]
+        }
     );
 
     let mut asset_store = AssetStore::from_folder("assets");

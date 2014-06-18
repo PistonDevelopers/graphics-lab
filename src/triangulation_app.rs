@@ -16,7 +16,7 @@ pub struct App {
 }
 
 impl Game for App {
-    fn render(&self, c: &Context, gl: &mut Gl) {
+    fn render(&self, c: &Context, args: &mut RenderArgs) {
         let c = &c.reset();
 
         let polygon = test_polygons::ALL[self.test_polygon_index];
@@ -33,11 +33,12 @@ impl Game for App {
             let start = i * 3 * 2;
             let end = (i + 1) * 3 * 2;
             c.polygon(triangles.slice(start, end))
-            .color(colors[i % colors.len()]).fill(gl);
+            .color(colors[i % colors.len()]).fill(args.gl);
         }
     }
 
-    fn key_press(&mut self, key: keyboard::Key, _asset_store: &mut AssetStore) {
+    fn key_press(&mut self, args: &KeyPressArgs) {
+        let key = args.key;
         if key == keyboard::Up {
             self.switch_test_polygon(1);
         } else if key == keyboard::Down {

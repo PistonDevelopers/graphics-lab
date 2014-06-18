@@ -11,11 +11,11 @@ impl App {
 }
 
 impl Game for App {
-    fn mouse_move(&mut self, x: f64, y: f64, _asset_store: &mut AssetStore) {
-        println!("{} {}", x, y);
+    fn mouse_move(&mut self, args: &MouseMoveArgs) {
+        println!("{} {}", args.x, args.y);
     }
 
-    fn key_press(&mut self, key: keyboard::Key, _asset_store: &mut AssetStore) {
-        println!("Pressed {:?}", key);
+    fn key_press(&mut self, args: &KeyPressArgs) {
+        println!("Pressed {:?}", args.key);
     }
 }
