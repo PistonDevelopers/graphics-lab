@@ -6,21 +6,24 @@ use graphics::*;
 use piston::*;
 
 pub struct App {
-    image: Option<Image>,
-    image2: Option<Image>, 
+    image: Option<Texture>,
+    image2: Option<Texture>, 
 }
 
 impl Game for App {
-    fn render(&self, c: &Context, gl: &mut Gl) {
+    fn render(&self, c: &Context, args: &mut RenderArgs) {
         let offset = 150.0;
-        c.trans(0.0, offset).image(self.image.unwrap()).draw(gl);
-        c.trans(offset, 0.0).image(self.image2.unwrap()).draw(gl);
-        c.trans(offset, offset).image(self.image2.unwrap()).draw(gl);
+        c.trans(0.0, offset).image(self.image.as_ref().unwrap()).draw(args.gl);
+        c.trans(offset, 0.0).image(self.image2.as_ref().unwrap()).draw(args.gl);
+        c.trans(offset, offset).image(self.image2.as_ref().unwrap()).draw(args.gl);
     }
 
     fn load(&mut self, asset_store: &mut AssetStore) {
-        self.image = Some(asset_store.load_image("dices.png").unwrap());
-        self.image2 = Some(asset_store.load_image("dices.png").unwrap());
+        let image = asset_store.path("dices.png").unwrap();
+        self.image = Some(Texture::from_path(&image).unwrap());
+
+        let image = asset_store.path("dices.png").unwrap();
+        self.image2 = Some(Texture::from_path(&image).unwrap());
     }
 }
 
