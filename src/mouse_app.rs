@@ -1,6 +1,5 @@
 
 use piston::*;
-use graphics::*;
 
 pub struct App;
 
