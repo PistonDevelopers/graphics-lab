@@ -1,4 +1,5 @@
 #![feature(globs)]
+#![allow(dead_code)]
 
 extern crate debug;
 extern crate graphics;
@@ -28,7 +29,7 @@ fn main() {
     // Create window.
     let mut window: GameWindowSDL2 = GameWindow::new(
         GameWindowSettings {
-            title: "Rust-Graphics-Lab".to_owned(),
+            title: "Rust-Graphics-Lab".to_string(),
             size: [600, 300],
             fullscreen: false,
             exit_on_esc: true,
