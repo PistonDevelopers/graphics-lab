@@ -33,7 +33,7 @@ pub struct App {
 }
 
 impl Game for App {
-    fn render(&self, c: &Context, args: &mut RenderArgs) {
+    fn render(&mut self, c: &Context, args: &mut RenderArgs) {
         let c = &c.reset();
 
         let polygon = test_polygons::ALL[self.test_polygon_index];
