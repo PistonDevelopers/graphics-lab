@@ -41,6 +41,18 @@ impl<T> Comp<Triangle<T>> for Quad<Triangle<T>> {
     }
 }
 
+impl<T> Comp<XY<T>> for Quad<XY<T>> {
+    fn comp() -> Per<XY<T>, Quad<XY<T>>> {
+        Per::new(4.0)
+    }
+}
+
+impl<T> Comp<XYZ<T>> for Quad<XYZ<T>> {
+    fn comp() -> Per<XYZ<T>, Quad<XYZ<T>>> {
+        Per::new(4.0)
+    }
+}
+
 impl Comp<Byte> for F32 {
     fn comp() -> Per<Byte, F32> {
         Per::new(4.0)
@@ -71,17 +83,17 @@ impl<T> Comp<T> for RGBA<T> {
     }
 }
 
-fn per<T: Comp<U>, U, V: Comp<T>>() -> Per<U, V> {
+fn product<T: Comp<U>, U, V: Comp<T>>() -> Per<U, V> {
     let u_per_t: Per<U, T> = Comp::comp();
     let t_per_v: Per<T, V> = Comp::comp();
     u_per_t * t_per_v
 }
 
 fn main() {
-    let bytes_per_xy: Per<Byte, XY<F32>> = per();
+    let bytes_per_xy: Per<Byte, XY<F32>> = product();
     println!("{:?}", bytes_per_xy);
    
-    let bytes_per_xyz: Per<Byte, XYZ<F32>> = per(); 
+    let bytes_per_xyz: Per<Byte, XYZ<F32>> = product(); 
     println!("{:?}", bytes_per_xyz);
 
     let bytes_per_triangle: Per<Byte, Triangle<XY<F32>>>
