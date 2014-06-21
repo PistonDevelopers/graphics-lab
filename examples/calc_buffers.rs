@@ -71,23 +71,21 @@ impl<T> Comp<T> for RGBA<T> {
     }
 }
 
-fn bytes_per_xy<T: Comp<Byte>>() -> Per<Byte, XY<T>> {
-    let bytes_per_t: Per<Byte, T> = Comp::comp();
-    let t_per_xy: Per<T, XY<T>> = Comp::comp();
-    bytes_per_t * t_per_xy
-}
-
-fn bytes_per_xyz<T: Comp<Byte>>() -> Per<Byte, XYZ<T>> {
-    let bytes_per_t: Per<Byte, T> = Comp::comp();
-    let t_per_xyz: Per<T, XYZ<T>> = Comp::comp();
-    bytes_per_t * t_per_xyz
+fn per<T: Comp<U>, U, V: Comp<T>>() -> Per<U, V> {
+    let u_per_t: Per<U, T> = Comp::comp();
+    let t_per_v: Per<T, V> = Comp::comp();
+    u_per_t * t_per_v
 }
 
 fn main() {
-    let bytes_per_xy: Per<Byte, XY<F32>> = bytes_per_xy();
+    let bytes_per_xy: Per<Byte, XY<F32>> = per();
     println!("{:?}", bytes_per_xy);
    
-    let bytes_per_xyz: Per<Byte, XYZ<F32>> = bytes_per_xyz(); 
+    let bytes_per_xyz: Per<Byte, XYZ<F32>> = per(); 
     println!("{:?}", bytes_per_xyz);
+
+    let bytes_per_triangle: Per<Byte, Triangle<XY<F32>>>
+        = bytes_per_xy * Comp::comp();
+    println!("{:?}", bytes_per_triangle);
 }
 
