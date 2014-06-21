@@ -1,6 +1,10 @@
+//! Test polygon shapes
 
+/// Contains test data.
 pub struct TestPolygon {
+    /// The theoretical minimum triangles of splitting up the contour.
     pub minimum_triangles: Option<u64>,
+    /// The polygon shape.
     pub data: &'static [f64],
 }
 

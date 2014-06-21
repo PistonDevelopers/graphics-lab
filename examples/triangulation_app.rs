@@ -1,15 +1,32 @@
 #![allow(dead_code)]
 
-// Extern crates.
-use piston::*;
-use graphics::*;
+extern crate piston;
+extern crate graphics;
+extern crate lab;
+
+use graphics::{
+    AddColor,
+    AddPolygon,
+    Context,
+    Fill,
+    View,
+};
+use piston::{
+    AssetStore,
+    Game,
+    GameWindowSDL2,
+    GameWindowSettings,
+    keyboard,
+    KeyPressArgs,
+    RenderArgs,
+};
 use graphics::modular_index::{offset};
 
 // Local crate.
-use test_colors;
-use test_polygons;
-use conversion;
-use triangulation;
+use lab::test_colors;
+use lab::test_polygons;
+use lab::conversion;
+use lab::triangulation;
 
 pub struct App {
     test_polygon_index: uint,
@@ -68,4 +85,24 @@ impl App {
     }
 }
 
+#[start]
+fn start(argc: int, argv: **u8) -> int {
+    // Run on main thread.
+    native::start(argc, argv, main)
+}
 
+fn main() {
+    let mut window = GameWindowSDL2::new(
+        GameWindowSettings {
+            title: "Rust-Graphics-Lab: Triangulation App".to_string(),
+            size: [600, 300],
+            fullscreen: false,
+            exit_on_esc: true,
+            background_color: [1.0, 1.0, 1.0, 1.0]
+        }
+    );
+   
+    let mut asset_store = AssetStore::from_folder("assets"); 
+    let mut app = App::new();
+    app.run(&mut window, &mut asset_store);
+}

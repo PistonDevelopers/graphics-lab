@@ -1,4 +1,6 @@
 
+//! Converts vector data.
+
 // Local crate.
 use Vector2d = vector2d::Vector2d;
 
