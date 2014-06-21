@@ -87,5 +87,11 @@ fn main() {
     let bytes_per_triangle: Per<Byte, Triangle<XY<F32>>>
         = bytes_per_xy * Comp::comp();
     println!("{:?}", bytes_per_triangle);
+
+    let bytes_per_l1cache: Per<Byte, L1Cache> = Comp::comp();
+    println!("{:?}", bytes_per_l1cache);
+
+    let triangles_per_l1cache = bytes_per_l1cache / bytes_per_triangle;
+    println!("{:?}", triangles_per_l1cache);
 }
 
