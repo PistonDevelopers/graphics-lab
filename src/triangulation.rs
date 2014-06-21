@@ -1,3 +1,5 @@
+//! Experimental triangulation algorithm.
+
 use graphics::modular_index::{offset, previous, next};
 
 // Local crate.
@@ -5,6 +7,7 @@ use Vector2d = vector2d::Vector2d;
 
 static EPSILON: f64 = 0.0000000001;
 
+/// Compute area of contour.
 pub fn area(contour: &[Vector2d]) -> f64 {
     let n = contour.len();
     let mut sum = 0.0_f64;
@@ -12,8 +15,10 @@ pub fn area(contour: &[Vector2d]) -> f64 {
     for i in range(0, n) {
         let q = i;
         let p = previous(n, i);
-        sum += contour.get(p).unwrap().get_x() * contour.get(q).unwrap().get_y() 
-            - contour.get(q).unwrap().get_x() * contour.get(p).unwrap().get_y();
+        sum += contour.get(p).unwrap().get_x() 
+            * contour.get(q).unwrap().get_y() 
+            - contour.get(q).unwrap().get_x() 
+            * contour.get(p).unwrap().get_y();
     }
 
     sum * 0.5_f64
@@ -44,6 +49,7 @@ pub fn inside_triangle(
     && ab_cross_ap >= 0.0_f64
 }
 
+/// Check for self intersection.
 pub fn snip(
     contour: &[Vector2d],
     triangle: [uint, ..3],
@@ -69,12 +75,20 @@ pub fn snip(
         if (p == u) || (p == v) || (p == w) { continue; }
 
         let p_pos = contour.get(*vertex_indices.get(p)).unwrap();
-        if inside_triangle(ax,ay,bx,by,cx,cy,p_pos.get_x(),p_pos.get_y()) { return false; }
+        if inside_triangle(
+                ax, ay,
+                bx, by,
+                cx, cy,
+                p_pos.get_x(), p_pos.get_y()
+        ) {
+            return false;
+        }
     }
 
     true
 }
 
+/// Triangulize a polygon contour.
 pub fn process(
     contour: &[Vector2d]
 ) -> Option<Vec<Vector2d>> {
