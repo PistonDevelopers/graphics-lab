@@ -4,6 +4,7 @@
 //! Documentation goes here.
 
 extern crate graphics;
+extern crate debug;
 
 pub mod test_colors;
 pub mod test_polygons;
