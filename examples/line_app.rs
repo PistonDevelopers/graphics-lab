@@ -4,7 +4,11 @@
 
 extern crate piston;
 extern crate graphics;
+extern crate sdl2_game_window;
+extern crate opengl_graphics;
 
+use opengl_graphics::{Gl};
+use Window = sdl2_game_window::GameWindowSDL2;
 use graphics::{
     Context,
     AddColor,
@@ -12,18 +16,16 @@ use graphics::{
     AddRoundBorder,
     RelativeColor,
     RelativeTransform2d,
-    Stroke,
+    Draw,
 };
 use piston::{
     GameIterator,
     GameIteratorSettings,
-    GameWindowSDL2,
     GameWindowSettings,
     Render,
-    RenderArgs,
 };
 
-fn render(c: &Context, args: &mut RenderArgs) {
+fn render(c: &Context, gl: &mut Gl) {
     let line = c.line(0.0, 0.0, 0.5, 0.5);
     let line = line.round_border_radius(0.1);
     let line = line.rgb(1.0, 1.0, 0.0);
@@ -33,7 +35,7 @@ fn render(c: &Context, args: &mut RenderArgs) {
         let f = i as f64 / n as f64;
         line.trans(f * (end - start) + start, 0.0)
         .hue_deg(f as f32 * 360.0)
-        .stroke(args.gl);
+        .draw(gl);
     }
 }
 
@@ -44,13 +46,12 @@ fn start(argc: int, argv: **u8) -> int {
 }
 
 fn main() {
-    let mut window = GameWindowSDL2::new(
+    let mut window = Window::new(
         GameWindowSettings {
             title: "Rust-Graphics-Lab: Line App".to_string(),
             size: [600, 300],
             fullscreen: false,
             exit_on_esc: true,
-            background_color: [1.0, 1.0, 1.0, 1.0]
         }
     );
 
@@ -59,16 +60,19 @@ fn main() {
         max_frames_per_second: 60,
     };
     let mut game_iter = GameIterator::new(&mut window, &game_iter_settings);
+    let ref mut gl = Gl::new();
     loop {
         match game_iter.next() {
             None => break,
             Some(mut e) => match e {
                 Render(ref mut args) => {
+                    gl.viewport(0, 0, args.width as i32, args.height as i32);
                     let c = Context::abs(
                             args.width as f64, 
                             args.height as f64
                         );
-                    render(&c, args);
+                    c.rgb(1.0, 1.0, 1.0).draw(gl);
+                    render(&c, gl);
                 },
                 _ => {},
             },

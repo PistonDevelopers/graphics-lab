@@ -1,20 +1,18 @@
 #![allow(dead_code)]
+#![feature(globs)]
 
 extern crate piston;
 extern crate graphics;
 extern crate lab;
+extern crate sdl2_game_window;
+extern crate opengl_graphics;
 
-use graphics::{
-    AddColor,
-    AddPolygon,
-    Context,
-    Fill,
-    View,
-};
+use Window = sdl2_game_window::GameWindowSDL2;
+use opengl_graphics::{Gl};
+use graphics::*;
 use piston::{
-    AssetStore,
     Game,
-    GameWindowSDL2,
+    GameIteratorSettings,
     GameWindowSettings,
     keyboard,
     KeyPressArgs,
@@ -30,11 +28,15 @@ use lab::triangulation;
 
 pub struct App {
     test_polygon_index: uint,
+    gl: Gl,
 }
 
 impl Game for App {
-    fn render(&mut self, c: &Context, args: &mut RenderArgs) {
-        let c = &c.reset();
+    fn render(&mut self, args: &mut RenderArgs) {
+        let ref mut gl = self.gl;
+        gl.viewport(0, 0, args.width as i32, args.height as i32);
+        let c = Context::abs(args.width as f64, args.height as f64);
+        c.rgb(1.0, 1.0, 1.0).draw(gl);
 
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
@@ -50,7 +52,7 @@ impl Game for App {
             let start = i * 3 * 2;
             let end = (i + 1) * 3 * 2;
             c.polygon(triangles.slice(start, end))
-            .color(colors[i % colors.len()]).fill(args.gl);
+            .color(colors[i % colors.len()]).draw(gl);
         }
     }
 
@@ -70,6 +72,7 @@ impl App {
     pub fn new() -> App {
         App {
             test_polygon_index: 0,
+            gl: Gl::new(),
         }
     }
 
@@ -92,17 +95,18 @@ fn start(argc: int, argv: **u8) -> int {
 }
 
 fn main() {
-    let mut window = GameWindowSDL2::new(
+    let mut window = Window::new(
         GameWindowSettings {
             title: "Rust-Graphics-Lab: Triangulation App".to_string(),
             size: [600, 300],
             fullscreen: false,
             exit_on_esc: true,
-            background_color: [1.0, 1.0, 1.0, 1.0]
         }
     );
    
-    let mut asset_store = AssetStore::from_folder("assets"); 
     let mut app = App::new();
-    app.run(&mut window, &mut asset_store);
+    app.run(&mut window, &GameIteratorSettings {
+        updates_per_second: 120,
+        max_frames_per_second: 60,
+    });
 }
