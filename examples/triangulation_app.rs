@@ -32,7 +32,7 @@ pub struct App {
 }
 
 impl Game for App {
-    fn render(&mut self, args: &mut RenderArgs) {
+    fn render(&mut self, args: &RenderArgs) {
         let ref mut gl = self.gl;
         gl.viewport(0, 0, args.width as i32, args.height as i32);
         let c = Context::abs(args.width as f64, args.height as f64);

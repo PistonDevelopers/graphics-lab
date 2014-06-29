@@ -59,7 +59,7 @@ fn main() {
                     c.rgb(1.0, 1.0, 1.0).draw(gl);
                     c.rect(0.0, 0.0, 50.0, 50.0).rgb(1.0, 0.0, 0.0).draw(gl);
                     let offset = 150.0;
-                    // c.trans(0.0, offset).image(&image).draw(gl);
+                    c.trans(0.0, offset).image(&image).draw(gl);
                 },
                 _ => {},
             }
