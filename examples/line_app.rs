@@ -26,11 +26,14 @@ use piston::{
 };
 
 fn render(c: &Context, gl: &mut Gl) {
-    let line = c.line(0.0, 0.0, 0.5, 0.5);
-    let line = line.round_border_radius(0.1);
-    let line = line.rgb(1.0, 1.0, 0.0);
-    let n = 200;
-    let (start, end) = (-0.75, 0.5);
+    // Create a line.
+    let line = c.line(0.0, 0.0, 0.0, 100.0)
+        .round_border_radius(3.0)
+        .rgb(1.0, 1.0, 0.0);
+
+    // Draw ten lines beside each other with hue transformed color.
+    let n = 10;
+    let (start, end) = (0.0, 400.0);
     for i in range(0u, n + 1) {
         let f = i as f64 / n as f64;
         line.trans(f * (end - start) + start, 0.0)
