@@ -1,6 +1,7 @@
 
 // Allow dead code since this is an example app.
 #![allow(dead_code)]
+#![feature(globs)]
 
 extern crate piston;
 extern crate graphics;
@@ -9,15 +10,7 @@ extern crate opengl_graphics;
 
 use opengl_graphics::{Gl};
 use Window = sdl2_game_window::GameWindowSDL2;
-use graphics::{
-    Context,
-    AddColor,
-    AddLine,
-    AddRoundBorder,
-    RelativeColor,
-    RelativeTransform2d,
-    Draw,
-};
+use graphics::*;
 use piston::{
     GameIterator,
     GameIteratorSettings,
@@ -25,21 +18,14 @@ use piston::{
     Render,
 };
 
-fn render(c: &Context, gl: &mut Gl) {
-    // Create a line.
-    let line = c.line(0.0, 0.0, 0.0, 100.0)
-        .round_border_radius(3.0)
-        .rgb(1.0, 1.0, 0.0);
+fn render(c: &Context, gl: &mut Gl) { 
+    // c.ellipse(0.0, 0.0, 100.0, 200.0).rgb(1.0, 0.0, 0.0).border_width(3.0).draw(gl);
 
-    // Draw ten lines beside each other with hue transformed color.
-    let n = 10;
-    let (start, end) = (0.0, 400.0);
-    for i in range(0u, n + 1) {
-        let f = i as f64 / n as f64;
-        line.trans(f * (end - start) + start, 0.0)
-        .hue_deg(f as f32 * 360.0)
-        .draw(gl);
-    }
+    // c.rect(0.0, 0.0, 100.0, 100.0).round(20.0).rgb(1.0, 0.0, 0.0).border_width(3.0).draw(gl);
+
+    // c.rect(0.0, 0.0, 100.0, 100.0).bevel(20.0).rgb(1.0, 0.0, 0.0).border_width(3.0).draw(gl);
+
+    c.rect(20.0, 20.0, 220.0, 200.0).border_width(10.0).rgb(1.0, 0.0, 0.0).draw(gl);
 }
 
 fn main() {
