@@ -88,12 +88,6 @@ impl App {
     }
 }
 
-#[start]
-fn start(argc: int, argv: **u8) -> int {
-    // Run on main thread.
-    native::start(argc, argv, main)
-}
-
 fn main() {
     let mut window = Window::new(
         GameWindowSettings {

@@ -39,12 +39,6 @@ fn render(c: &Context, gl: &mut Gl) {
     }
 }
 
-#[start]
-fn start(argc: int, argv: **u8) -> int {
-    // Run on the main thread.
-    native::start(argc, argv, main)
-}
-
 fn main() {
     let mut window = Window::new(
         GameWindowSettings {
