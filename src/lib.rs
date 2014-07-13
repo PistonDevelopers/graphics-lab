@@ -1,4 +1,4 @@
-#![crate_id = "lab"]
+#![crate_name = "lab"]
 #![deny(missing_doc)]
 
 //! Documentation goes here.
