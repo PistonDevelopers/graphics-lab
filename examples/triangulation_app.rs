@@ -3,7 +3,7 @@
 
 extern crate piston;
 extern crate graphics;
-extern crate lab;
+extern crate lab = "rust-graphics-lab";
 extern crate sdl2_game_window;
 extern crate opengl_graphics;
 
