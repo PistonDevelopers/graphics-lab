@@ -1,6 +1,6 @@
 
 extern crate debug;
-extern crate lab;
+extern crate lab = "rust-graphics-lab";
 
 use lab::units::Per;
 use lab::units::Comp;
