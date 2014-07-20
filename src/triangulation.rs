@@ -58,9 +58,9 @@ pub fn snip(
 ) -> bool {
     let (u, v, w) = (triangle[0], triangle[1], triangle[2]);
 
-    let a_pos = contour.get(*vertex_indices.get(u)).unwrap();
-    let b_pos = contour.get(*vertex_indices.get(v)).unwrap();
-    let c_pos = contour.get(*vertex_indices.get(w)).unwrap();
+    let a_pos = contour.get(vertex_indices[u]).unwrap();
+    let b_pos = contour.get(vertex_indices[v]).unwrap();
+    let c_pos = contour.get(vertex_indices[w]).unwrap();
     
     let (ax, ay) = (a_pos.get_x(), a_pos.get_y());
     let (bx, by) = (b_pos.get_x(), b_pos.get_y());
@@ -74,7 +74,7 @@ pub fn snip(
         // Do not check for any of the vertices in the triangle.
         if (p == u) || (p == v) || (p == w) { continue; }
 
-        let p_pos = contour.get(*vertex_indices.get(p)).unwrap();
+        let p_pos = contour.get(vertex_indices[p]).unwrap();
         if inside_triangle(
                 ax, ay,
                 bx, by,
@@ -140,7 +140,7 @@ pub fn process(
 
         if snip(contour, triangle, number_of_vertices, &mut vertex_indices) {
             for &i in triangle.iter() {
-                result.push(*contour.get(*vertex_indices.get(i)).unwrap());
+                result.push(*contour.get(vertex_indices[i]).unwrap());
             }
 
             /* remove v from remaining polygon */
@@ -148,7 +148,7 @@ pub fn process(
                 let s = v + i;
                 let t = v + i + 1;
 
-                *vertex_indices.get_mut(s) = *vertex_indices.get(t);
+                *vertex_indices.get_mut(s) = vertex_indices[t];
             }
 
             // "Removed" a vertex.
