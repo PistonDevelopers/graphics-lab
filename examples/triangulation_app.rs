@@ -13,6 +13,7 @@ use graphics::*;
 use piston::{
     Game,
     GameIteratorSettings,
+    GameWindow,
     GameWindowSettings,
     keyboard,
     KeyPressArgs,
@@ -31,8 +32,8 @@ pub struct App {
     gl: Gl,
 }
 
-impl Game for App {
-    fn render(&mut self, args: &RenderArgs) {
+impl<W: GameWindow> Game<W> for App {
+    fn render(&mut self, _window: &mut W, args: &RenderArgs) {
         let ref mut gl = self.gl;
         gl.viewport(0, 0, args.width as i32, args.height as i32);
         let c = Context::abs(args.width as f64, args.height as f64);
@@ -56,7 +57,7 @@ impl Game for App {
         }
     }
 
-    fn key_press(&mut self, args: &KeyPressArgs) {
+    fn key_press(&mut self, _window: &mut W, args: &KeyPressArgs) {
         let key = args.key;
         if key == keyboard::Up {
             self.switch_test_polygon(1);
