@@ -7,16 +7,16 @@ extern crate lab = "rust-graphics-lab";
 extern crate sdl2_game_window;
 extern crate opengl_graphics;
 
-use Window = sdl2_game_window::GameWindowSDL2;
+use sdl2_game_window::GameWindowSDL2 as Window;
 use opengl_graphics::{Gl};
 use graphics::*;
+use piston::input::keyboard;
+use piston::input;
 use piston::{
-    Game,
     GameIteratorSettings,
-    GameWindow,
     GameWindowSettings,
-    keyboard,
-    KeyPressArgs,
+    Input,
+    Render,
     RenderArgs,
 };
 use graphics::modular_index::{offset};
@@ -25,15 +25,22 @@ use graphics::modular_index::{offset};
 use lab::test_colors;
 use lab::test_polygons;
 use lab::conversion;
-use lab::triangulation;
+use lab::triangulation as triangulation_lib;
 
 pub struct App {
     test_polygon_index: uint,
     gl: Gl,
 }
 
-impl<W: GameWindow> Game<W> for App {
-    fn render(&mut self, _window: &mut W, args: &RenderArgs) {
+impl App {
+    pub fn new() -> App {
+        App {
+            test_polygon_index: 0,
+            gl: Gl::new(),
+        }
+    }
+
+    fn render(&mut self, args: &RenderArgs) {
         let ref mut gl = self.gl;
         gl.viewport(0, 0, args.width as i32, args.height as i32);
         let c = Context::abs(args.width as f64, args.height as f64);
@@ -41,7 +48,7 @@ impl<W: GameWindow> Game<W> for App {
 
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
-        let triangles = triangulation::process(polygon.as_slice());
+        let triangles = triangulation_lib::process(polygon.as_slice());
         if triangles == None { return; }
 
         let triangles = triangles.unwrap();
@@ -57,23 +64,11 @@ impl<W: GameWindow> Game<W> for App {
         }
     }
 
-    fn key_press(&mut self, _window: &mut W, args: &KeyPressArgs) {
-        let key = args.key;
+    fn key_press(&mut self, key: keyboard::Key) {
         if key == keyboard::Up {
             self.switch_test_polygon(1);
         } else if key == keyboard::Down {
             self.switch_test_polygon(-1);
-        }
-    }
-
-    
-}
-
-impl App {
-    pub fn new() -> App {
-        App {
-            test_polygon_index: 0,
-            gl: Gl::new(),
         }
     }
 
@@ -91,6 +86,7 @@ impl App {
 
 fn main() {
     let mut window = Window::new(
+        piston::shader_version::opengl::OpenGL_3_2,
         GameWindowSettings {
             title: "Rust-Graphics-Lab: Triangulation App".to_string(),
             size: [600, 300],
@@ -98,10 +94,20 @@ fn main() {
             exit_on_esc: true,
         }
     );
-   
+
     let mut app = App::new();
-    app.run(&mut window, &GameIteratorSettings {
+    let game_iter_settings = piston::GameIteratorSettings {
         updates_per_second: 120,
         max_frames_per_second: 60,
-    });
+    };
+
+    for e in piston::GameIterator::new(&mut window, &game_iter_settings) {
+        match e {
+            Input(input::KeyPress { key, .. }) =>
+                app.key_press(key),
+            Render(_args) =>
+                app.render(&_args),
+            _ => {},
+        }
+    }
 }

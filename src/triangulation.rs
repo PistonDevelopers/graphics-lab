@@ -3,7 +3,7 @@
 use graphics::modular_index::{offset, previous, next};
 
 // Local crate.
-use Vector2d = vector2d::Vector2d;
+use vector2d::Vector2d as Vector2d;
 
 static EPSILON: f64 = 0.0000000001;
 
