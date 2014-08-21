@@ -9,7 +9,7 @@ extern crate sdl2_game_window;
 extern crate opengl_graphics;
 
 use opengl_graphics::{Gl, Texture};
-use Window = sdl2_game_window::GameWindowSDL2;
+use sdl2_game_window::GameWindowSDL2 as Window;
 use graphics::*;
 use piston::{
     AssetStore,
@@ -21,6 +21,7 @@ use piston::{
 
 fn main() {
     let mut window = Window::new(
+        piston::shader_version::opengl::OpenGL_3_2,
         GameWindowSettings {
             title: "Rust-Graphics-Lab: Texture App".to_string(),
             size: [600, 300],

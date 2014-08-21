@@ -2,7 +2,7 @@
 //! Converts vector data.
 
 // Local crate.
-use Vector2d = vector2d::Vector2d;
+use vector2d::Vector2d as Vector2d;
 
 /// Converts to the format used by Rust-Graphics.
 pub fn to_vec_f64(vec: &[Vector2d]) -> Vec<f64> {
