@@ -1,4 +1,4 @@
-# Rust-Graphics-Lab [![Build Status](https://travis-ci.org/PistonDevelopers/rust-graphics-lab.svg)](https://travis-ci.org/PistonDevelopers/rust-graphics-lab)
+# Rust-Graphics-Lab [![Build Status](https://travis-ci.org/PistonDevelopers/rust-graphics-lab.svg?branch=master)](https://travis-ci.org/PistonDevelopers/rust-graphics-lab)
 
 A place to visualize and test concepts related to Rust-Graphics.
 
