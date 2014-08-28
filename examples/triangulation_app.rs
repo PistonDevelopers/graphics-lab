@@ -103,7 +103,7 @@ fn main() {
 
     for e in piston::GameIterator::new(&mut window, &game_iter_settings) {
         match e {
-            Input(input::KeyPress { key, .. }) =>
+            Input(input::Press(input::Keyboard(key))) =>
                 app.key_press(key),
             Render(_args) =>
                 app.render(&_args),
