@@ -30,7 +30,7 @@ fn main() {
         }
     );
 
-    let asset_store = AssetStore::from_folder("assets");
+    let asset_store = AssetStore::from_folder("../examples/assets");
 
     let image = asset_store.path("dices.png").unwrap();
     let image = Texture::from_path(&image).unwrap();
