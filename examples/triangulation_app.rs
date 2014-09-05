@@ -7,14 +7,14 @@ extern crate lab = "rust-graphics-lab";
 extern crate sdl2_game_window;
 extern crate opengl_graphics;
 
-use sdl2_game_window::GameWindowSDL2 as Window;
+use sdl2_game_window::WindowSDL2;
 use opengl_graphics::{Gl};
 use graphics::*;
 use piston::input::keyboard;
 use piston::input;
 use piston::{
-    GameIteratorSettings,
-    GameWindowSettings,
+    EventSettings,
+    WindowSettings,
     Input,
     Render,
     RenderArgs,
@@ -85,23 +85,24 @@ impl App {
 }
 
 fn main() {
-    let mut window = Window::new(
+    let mut window = WindowSDL2::new(
         piston::shader_version::opengl::OpenGL_3_2,
-        GameWindowSettings {
+        WindowSettings {
             title: "Rust-Graphics-Lab: Triangulation App".to_string(),
             size: [600, 300],
             fullscreen: false,
             exit_on_esc: true,
+            samples: 0,
         }
     );
 
     let mut app = App::new();
-    let game_iter_settings = piston::GameIteratorSettings {
+    let event_settings = piston::EventSettings {
         updates_per_second: 120,
         max_frames_per_second: 60,
     };
 
-    for e in piston::GameIterator::new(&mut window, &game_iter_settings) {
+    for e in piston::EventIterator::new(&mut window, &event_settings) {
         match e {
             Input(input::Press(input::Keyboard(key))) =>
                 app.key_press(key),
