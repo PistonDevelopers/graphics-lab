@@ -33,10 +33,10 @@ pub struct App {
 }
 
 impl App {
-    pub fn new() -> App {
+    pub fn new(opengl: piston::shader_version::opengl::OpenGL) -> App {
         App {
             test_polygon_index: 0,
-            gl: Gl::new(),
+            gl: Gl::new(opengl),
         }
     }
 
@@ -85,8 +85,9 @@ impl App {
 }
 
 fn main() {
+    let opengl = piston::shader_version::opengl::OpenGL_3_2;
     let mut window = WindowSDL2::new(
-        piston::shader_version::opengl::OpenGL_3_2,
+        opengl,
         WindowSettings {
             title: "Rust-Graphics-Lab: Triangulation App".to_string(),
             size: [600, 300],
@@ -96,7 +97,7 @@ fn main() {
         }
     );
 
-    let mut app = App::new();
+    let mut app = App::new(opengl);
     let event_settings = piston::EventSettings {
         updates_per_second: 120,
         max_frames_per_second: 60,

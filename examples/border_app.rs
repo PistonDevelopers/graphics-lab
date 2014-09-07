@@ -29,8 +29,9 @@ fn render(c: &Context, gl: &mut Gl) {
 }
 
 fn main() {
+    let opengl = piston::shader_version::opengl::OpenGL_3_2;
     let mut window = WindowSDL2::new(
-        piston::shader_version::opengl::OpenGL_3_2,
+        opengl,
         WindowSettings {
             title: "Rust-Graphics-Lab: Line App".to_string(),
             size: [600, 300],
@@ -45,7 +46,7 @@ fn main() {
         max_frames_per_second: 60,
     };
     let mut event_iter = EventIterator::new(&mut window, &event_settings);
-    let ref mut gl = Gl::new();
+    let ref mut gl = Gl::new(opengl);
     for e in event_iter {
         match e {
             Render(ref args) => {
