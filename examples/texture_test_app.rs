@@ -3,7 +3,8 @@
 #![allow(dead_code)]
 #![feature(globs)]
 
-extern crate piston;
+extern crate shader_version;
+extern crate event;
 extern crate graphics;
 extern crate sdl2_game_window;
 extern crate opengl_graphics;
@@ -11,8 +12,7 @@ extern crate opengl_graphics;
 use opengl_graphics::{Gl, Texture};
 use sdl2_game_window::WindowSDL2;
 use graphics::*;
-use piston::{
-    AssetStore,
+use event::{
     EventIterator,
     EventSettings,
     WindowSettings,
@@ -20,7 +20,7 @@ use piston::{
 };
 
 fn main() {
-    let opengl = piston::shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL_3_2;
     let mut window = WindowSDL2::new(
         opengl,
         WindowSettings {
@@ -32,12 +32,11 @@ fn main() {
         }
     );
 
-    let asset_store = AssetStore::from_folder("../examples/assets");
-
-    let image = asset_store.path("dices.png").unwrap();
+    let assets = Path::new("./examples/assets");
+    let image = assets.join(&Path::new("dices.png"));
     let image = Texture::from_path(&image).unwrap();
 
-    let image2 = asset_store.path("dices.png").unwrap();
+    let image2 = assets.join(&Path::new("dices.png"));
     let image2 = Texture::from_path(&image2).unwrap();
 
     let event_settings = EventSettings {
