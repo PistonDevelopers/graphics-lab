@@ -8,14 +8,14 @@ pub struct TestPolygon {
     pub data: &'static [f64],
 }
 
-pub static ALL: &'static [TestPolygon] = &[
+pub const ALL: &'static [TestPolygon] = &[
     CONCAVE_1,
     SELF_INTERSECTING_1,
     SQUARE_CLOCKWISE,
     SQUARE_COUNTER_CLOCKWISE,
 ];
 
-pub static SELF_INTERSECTING_1: TestPolygon = TestPolygon {
+pub const SELF_INTERSECTING_1: TestPolygon = TestPolygon {
     minimum_triangles: None,
     data: &[
         0.0, 0.0,
@@ -25,7 +25,7 @@ pub static SELF_INTERSECTING_1: TestPolygon = TestPolygon {
     ],
 };
 
-pub static CONCAVE_1: TestPolygon = TestPolygon {
+pub const CONCAVE_1: TestPolygon = TestPolygon {
     minimum_triangles: Some(2),
     data: &[
         0.0, 0.0,
@@ -36,7 +36,7 @@ pub static CONCAVE_1: TestPolygon = TestPolygon {
     ],
 };
 
-pub static SQUARE_COUNTER_CLOCKWISE: TestPolygon = TestPolygon {
+pub const SQUARE_COUNTER_CLOCKWISE: TestPolygon = TestPolygon {
     minimum_triangles: Some(2),
     data: &[
         0.0, 0.0,
@@ -46,7 +46,7 @@ pub static SQUARE_COUNTER_CLOCKWISE: TestPolygon = TestPolygon {
     ],
 };
 
-pub static SQUARE_CLOCKWISE: TestPolygon = TestPolygon {
+pub const SQUARE_CLOCKWISE: TestPolygon = TestPolygon {
     minimum_triangles: Some(2),
     data: &[
         0.0, 0.0,
