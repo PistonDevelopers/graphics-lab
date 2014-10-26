@@ -3,7 +3,8 @@
 #![allow(dead_code)]
 #![feature(globs)]
 
-extern crate piston;
+extern crate shader_version;
+extern crate event;
 extern crate graphics;
 extern crate sdl2_game_window;
 extern crate opengl_graphics;
@@ -11,11 +12,10 @@ extern crate opengl_graphics;
 use opengl_graphics::{Gl};
 use sdl2_game_window::WindowSDL2;
 use graphics::*;
-use piston::{
+use event::{
     EventIterator,
     EventSettings,
     WindowSettings,
-    Render,
 };
 
 fn render(c: &Context, gl: &mut Gl) { 
@@ -29,7 +29,7 @@ fn render(c: &Context, gl: &mut Gl) {
 }
 
 fn main() {
-    let opengl = piston::shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL_3_2;
     let mut window = WindowSDL2::new(
         opengl,
         WindowSettings {
@@ -48,14 +48,12 @@ fn main() {
     let mut event_iter = EventIterator::new(&mut window, &event_settings);
     let ref mut gl = Gl::new(opengl);
     for e in event_iter {
-        match e {
-            Render(ref args) => {
-                gl.viewport(0, 0, args.width as i32, args.height as i32);
-                let c = Context::abs(args.width as f64, args.height as f64);
-                c.rgb(1.0, 1.0, 1.0).draw(gl);
-                render(&c, gl);
-            }
-            _ => {}
-        }
+        use event::RenderEvent;
+        e.render(|args| {
+            gl.viewport(0, 0, args.width as i32, args.height as i32);
+            let c = Context::abs(args.width as f64, args.height as f64);
+            c.rgb(1.0, 1.0, 1.0).draw(gl);
+            render(&c, gl);
+        });
     }
 }

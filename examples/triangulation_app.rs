@@ -1,7 +1,9 @@
 #![allow(dead_code)]
 #![feature(globs)]
 
-extern crate piston;
+extern crate input;
+extern crate shader_version;
+extern crate event;
 extern crate graphics;
 extern crate "rust-graphics-lab" as lab;
 extern crate sdl2_game_window;
@@ -10,16 +12,14 @@ extern crate opengl_graphics;
 use sdl2_game_window::WindowSDL2;
 use opengl_graphics::{Gl};
 use graphics::*;
-use piston::input::keyboard;
-use piston::input;
-use piston::{
+use event::{
+    EventIterator,
     EventSettings,
-    WindowSettings,
-    Input,
-    Render,
     RenderArgs,
+    WindowSettings,
 };
 use graphics::modular_index::{offset};
+use input::keyboard;
 
 // Local crate.
 use lab::test_colors;
@@ -33,14 +33,14 @@ pub struct App {
 }
 
 impl App {
-    pub fn new(opengl: piston::shader_version::opengl::OpenGL) -> App {
+    pub fn new(opengl: shader_version::opengl::OpenGL) -> App {
         App {
             test_polygon_index: 0,
             gl: Gl::new(opengl),
         }
     }
 
-    fn render(&mut self, args: &RenderArgs) {
+    fn draw(&mut self, args: &RenderArgs) {
         let ref mut gl = self.gl;
         gl.viewport(0, 0, args.width as i32, args.height as i32);
         let c = Context::abs(args.width as f64, args.height as f64);
@@ -85,7 +85,7 @@ impl App {
 }
 
 fn main() {
-    let opengl = piston::shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL_3_2;
     let mut window = WindowSDL2::new(
         opengl,
         WindowSettings {
@@ -98,18 +98,24 @@ fn main() {
     );
 
     let mut app = App::new(opengl);
-    let event_settings = piston::EventSettings {
+    let event_settings = EventSettings {
         updates_per_second: 120,
         max_frames_per_second: 60,
     };
 
-    for e in piston::EventIterator::new(&mut window, &event_settings) {
-        match e {
-            Input(input::Press(input::Keyboard(key))) =>
-                app.key_press(key),
-            Render(_args) =>
-                app.render(&_args),
-            _ => {},
-        }
+    for e in EventIterator::new(&mut window, &event_settings) {
+        use event::{ PressEvent, RenderEvent };
+        e.render(|args| {
+            app.draw(args);
+        });
+        e.press(|button| {
+            match button {
+                input::Keyboard(key) => {
+                    app.key_press(key);
+                }
+                _ => {}
+            }
+        });
     }
 }
+
