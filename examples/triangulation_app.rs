@@ -6,10 +6,10 @@ extern crate shader_version;
 extern crate event;
 extern crate graphics;
 extern crate "rust-graphics-lab" as lab;
-extern crate sdl2_game_window;
+extern crate sdl2_window;
 extern crate opengl_graphics;
 
-use sdl2_game_window::WindowSDL2;
+use sdl2_window::Sdl2Window;
 use opengl_graphics::{Gl};
 use graphics::*;
 use event::{
@@ -86,7 +86,7 @@ impl App {
 
 fn main() {
     let opengl = shader_version::opengl::OpenGL_3_2;
-    let mut window = WindowSDL2::new(
+    let mut window = Sdl2Window::new(
         opengl,
         WindowSettings {
             title: "Rust-Graphics-Lab: Triangulation App".to_string(),

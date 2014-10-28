@@ -5,12 +5,12 @@
 extern crate shader_version;
 extern crate event;
 extern crate graphics;
-extern crate sdl2_game_window;
+extern crate sdl2_window;
 extern crate opengl_graphics;
 
 use graphics::*;
 use opengl_graphics::{ Gl };
-use sdl2_game_window::WindowSDL2;
+use sdl2_window::Sdl2Window;
 use event::{
     EventIterator,
     EventSettings,
@@ -20,7 +20,7 @@ use event::{
 
 fn main() {
     let opengl = shader_version::opengl::OpenGL_3_2;
-    let mut window = WindowSDL2::new(
+    let mut window = Sdl2Window::new(
         opengl,
         WindowSettings {
             title: "Rust-Graphics-Lab: Empty App".to_string(),
