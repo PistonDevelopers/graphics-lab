@@ -9,14 +9,11 @@ extern crate graphics;
 extern crate sdl2_window;
 extern crate opengl_graphics;
 
+use std::cell::RefCell;
 use opengl_graphics::{Gl};
 use sdl2_window::Sdl2Window;
 use graphics::*;
-use event::{
-    EventIterator,
-    EventSettings,
-    WindowSettings,
-};
+use event::{ Events, WindowSettings };
 
 fn render(c: &Context, gl: &mut Gl) { 
     // c.ellipse(0.0, 0.0, 100.0, 200.0).rgb(1.0, 0.0, 0.0).border_width(3.0).draw(gl);
@@ -30,7 +27,7 @@ fn render(c: &Context, gl: &mut Gl) {
 
 fn main() {
     let opengl = shader_version::opengl::OpenGL_3_2;
-    let mut window = Sdl2Window::new(
+    let window = Sdl2Window::new(
         opengl,
         WindowSettings {
             title: "Rust-Graphics-Lab: Line App".to_string(),
@@ -41,13 +38,9 @@ fn main() {
         }
     );
 
-    let event_settings = EventSettings {
-        updates_per_second: 120,
-        max_frames_per_second: 60,
-    };
-    let mut event_iter = EventIterator::new(&mut window, &event_settings);
     let ref mut gl = Gl::new(opengl);
-    for e in event_iter {
+    let window = RefCell::new(window);
+    for e in Events::new(&window) {
         use event::RenderEvent;
         e.render(|args| {
             gl.viewport(0, 0, args.width as i32, args.height as i32);

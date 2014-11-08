@@ -1,5 +1,5 @@
 
-#![allow(missing_doc)]
+#![allow(missing_docs)]
 
 //! Provides safe unit abstractions.
 

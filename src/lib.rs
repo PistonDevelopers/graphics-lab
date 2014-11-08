@@ -1,5 +1,5 @@
 #![crate_name = "rust-graphics-lab"]
-#![deny(missing_doc)]
+#![deny(missing_docs)]
 
 //! Documentation goes here.
 
