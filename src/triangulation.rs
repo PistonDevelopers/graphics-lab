@@ -148,7 +148,7 @@ pub fn process(
                 let s = v + i;
                 let t = v + i + 1;
 
-                *vertex_indices.get_mut(s) = vertex_indices[t];
+                vertex_indices[s] = vertex_indices[t];
             }
 
             // "Removed" a vertex.
