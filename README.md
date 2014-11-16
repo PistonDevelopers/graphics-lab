@@ -2,6 +2,8 @@
 
 A place to visualize and test concepts related to the Piston [graphics](https://github.com/PistonDevelopers/graphics) library.
 
+[How to contribute](https://github.com/PistonDevelopers/piston/blob/master/CONTRIBUTING.md)
+
 ## About Rust-Graphics-Lab
 
 Rust-Graphics-Lab is a project of translating, prototyping and testing algorithms related to Rust-Graphics.
