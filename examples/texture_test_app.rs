@@ -16,7 +16,7 @@ use graphics::*;
 use event::{
     Events,
     WindowSettings,
-    Render,
+    Event,
 };
 
 fn main() {
@@ -43,7 +43,7 @@ fn main() {
     let window = RefCell::new(window);
     for e in Events::new(&window) {
         match e {
-            Render(ref args) => {
+            Event::Render(ref args) => {
                 gl.viewport(0, 0, args.width as i32, args.height as i32);
                 let c = Context::abs(args.width as f64, args.height as f64);
                 c.rgb(1.0, 1.0, 1.0).draw(gl);
