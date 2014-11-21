@@ -12,7 +12,6 @@ extern crate opengl_graphics;
 use std::cell::RefCell;
 use opengl_graphics::{Gl, Texture};
 use sdl2_window::Sdl2Window;
-use graphics::*;
 use event::{ Events, WindowSettings };
 
 fn main() {
@@ -35,11 +34,12 @@ fn main() {
     let ref mut gl = Gl::new(opengl);
     let window = RefCell::new(window);
     for e in Events::new(&window) {
+        use graphics::*;
         use event::RenderEvent;
         e.render(|args| {
             gl.viewport(0, 0, args.width as i32, args.height as i32);
             let c = Context::abs(args.width as f64, args.height as f64);
-            c.rgb(1.0, 1.0, 1.0).draw(gl);
+            c.hex("ffaa33").draw(gl);
             c.rect(0.0, 0.0, 50.0, 50.0).rgb(1.0, 0.0, 0.0).draw(gl);
             let offset = 150.0;
             c.trans(0.0, offset).image(&image).draw(gl);
