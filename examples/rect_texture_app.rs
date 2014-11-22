@@ -40,6 +40,7 @@ fn main() {
             gl.viewport(0, 0, args.width as i32, args.height as i32);
             let c = Context::abs(args.width as f64, args.height as f64);
             c.hex("ffaa33").draw(gl);
+            c.line(0.0, 100.0, 100.0, 100.0).hex("00ff00").draw(gl);
             c.rect(0.0, 0.0, 50.0, 50.0).rgb(1.0, 0.0, 0.0).draw(gl);
             let offset = 150.0;
             c.trans(0.0, offset).image(&image).draw(gl);

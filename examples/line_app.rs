@@ -1,6 +1,7 @@
 
 // Allow dead code since this is an example app.
 #![allow(dead_code)]
+#![feature(globs)]
 
 extern crate shader_version;
 extern crate event;
@@ -11,18 +12,11 @@ extern crate opengl_graphics;
 use std::cell::RefCell;
 use opengl_graphics::{Gl};
 use sdl2_window::Sdl2Window;
-use graphics::{
-    Context,
-    AddColor,
-    AddLine,
-    AddRoundBorder,
-    RelativeColor,
-    RelativeTransform2d,
-    Draw,
-};
 use event::{ Events, WindowSettings };
 
-fn render(c: &Context, gl: &mut Gl) {
+fn render(c: &graphics::Context, gl: &mut Gl) {
+    use graphics::*;
+
     // Create a line.
     let line = c.line(0.0, 0.0, 0.0, 100.0)
         .round_border_radius(3.0)
@@ -57,6 +51,8 @@ fn main() {
     for e in Events::new(&window) {
         use event::RenderEvent;
         e.render(|args| {
+            use graphics::*;
+
             gl.viewport(0, 0, args.width as i32, args.height as i32);
             let c = Context::abs(args.width as f64, args.height as f64);
             c.rgb(1.0, 1.0, 1.0).draw(gl);
