@@ -44,7 +44,7 @@ impl App {
         let ref mut gl = self.gl;
         gl.viewport(0, 0, args.width as i32, args.height as i32);
         let c = Context::abs(args.width as f64, args.height as f64);
-        c.rgb(1.0, 1.0, 1.0).draw(gl);
+        graphics::clear([1.0, ..4], gl);
 
         let polygon = test_polygons::ALL[self.test_polygon_index];
         let polygon = conversion::to_vec_vector2d(polygon.data);
@@ -59,15 +59,17 @@ impl App {
         for i in range(0, n) {
             let start = i * 3 * 2;
             let end = (i + 1) * 3 * 2;
-            c.polygon(triangles.slice(start, end))
-            .color(colors[i % colors.len()]).draw(gl);
+            graphics::Polygon::new(colors[i % colors.len()])
+                .draw(triangles.slice(start, end), &c, gl)
         }
     }
 
     fn key_press(&mut self, key: keyboard::Key) {
-        if key == keyboard::Up {
+        use input::keyboard::Key;        
+
+        if key == Key::Up {
             self.switch_test_polygon(1);
-        } else if key == keyboard::Down {
+        } else if key == Key::Down {
             self.switch_test_polygon(-1);
         }
     }
@@ -85,7 +87,7 @@ impl App {
 }
 
 fn main() {
-    let opengl = shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL::OpenGL_3_2;
     let window = Sdl2Window::new(
         opengl,
         WindowSettings {
@@ -102,12 +104,14 @@ fn main() {
     let window = RefCell::new(window);
     for e in Events::new(&window) {
         use event::{ PressEvent, RenderEvent };
+        use input::Button::Keyboard;
+
         e.render(|args| {
             app.draw(args);
         });
         e.press(|button| {
             match button {
-                input::Keyboard(key) => {
+                Keyboard(key) => {
                     app.key_press(key);
                 }
                 _ => {}
