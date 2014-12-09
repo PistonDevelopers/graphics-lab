@@ -15,7 +15,7 @@ use sdl2_window::Sdl2Window;
 use event::{ Events, WindowSettings };
 
 fn main() {
-    let opengl = shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL::OpenGL_3_2;
     let window = Sdl2Window::new(
         opengl,
         WindowSettings {
@@ -39,11 +39,13 @@ fn main() {
         e.render(|args| {
             gl.viewport(0, 0, args.width as i32, args.height as i32);
             let c = Context::abs(args.width as f64, args.height as f64);
-            c.hex("ffaa33").draw(gl);
-            c.line(0.0, 100.0, 100.0, 100.0).hex("00ff00").draw(gl);
-            c.rect(0.0, 0.0, 50.0, 50.0).rgb(1.0, 0.0, 0.0).draw(gl);
+            graphics::clear(graphics::color::hex("ffaa33"), gl);
+            graphics::Line::new(graphics::color::hex("00ff00"), 1.0)
+                .draw([0.0, 100.0, 100.0, 100.0], &c, gl);
+            graphics::Rectangle::new([1.0, 0.0, 0.0, 1.0])
+                .draw([0.0, 0.0, 50.0, 50.0], &c, gl);
             let offset = 150.0;
-            c.trans(0.0, offset).image(&image).draw(gl);
+            graphics::image(&image, &c.trans(0.0, offset), gl);
         });
     }
 }

@@ -22,11 +22,12 @@ fn render(c: &Context, gl: &mut Gl) {
 
     // c.rect(0.0, 0.0, 100.0, 100.0).bevel(20.0).rgb(1.0, 0.0, 0.0).border_width(3.0).draw(gl);
 
-    c.rect(20.0, 20.0, 220.0, 200.0).border_width(10.0).rgb(1.0, 0.0, 0.0).draw(gl);
+    graphics::Rectangle::border([1.0, 0.0, 0.0, 1.0], 5.0)
+        .draw([20.0, 20.0, 220.0, 200.0], c, gl);
 }
 
 fn main() {
-    let opengl = shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL::OpenGL_3_2;
     let window = Sdl2Window::new(
         opengl,
         WindowSettings {
@@ -45,7 +46,7 @@ fn main() {
         e.render(|args| {
             gl.viewport(0, 0, args.width as i32, args.height as i32);
             let c = Context::abs(args.width as f64, args.height as f64);
-            c.rgb(1.0, 1.0, 1.0).draw(gl);
+            graphics::clear([1.0, ..4], gl);
             render(&c, gl);
         });
     }

@@ -18,7 +18,7 @@ use event::{
 };
 
 fn main() {
-    let opengl = shader_version::opengl::OpenGL_3_2;
+    let opengl = shader_version::opengl::OpenGL::OpenGL_3_2;
     let window = Sdl2Window::new(
         opengl,
         WindowSettings {
@@ -37,8 +37,8 @@ fn main() {
         e.render(|args| {
             use graphics::*;
             gl.viewport(0, 0, args.width as i32, args.height as i32);
-            let c = Context::abs(args.width as f64, args.height as f64);
-            c.rgb(1.0, 1.0, 1.0).draw(gl);
+            // let c = Context::abs(args.width as f64, args.height as f64);
+            graphics::clear(graphics::color::WHITE, gl);
             // Do rendering here.
         });
     }
