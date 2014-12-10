@@ -18,7 +18,7 @@ use event::{
 };
 
 fn main() {
-    let opengl = shader_version::opengl::OpenGL::OpenGL_3_2;
+    let opengl = shader_version::OpenGL::_3_2;
     let window = Sdl2Window::new(
         opengl,
         WindowSettings {
